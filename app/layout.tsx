@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import ConvexClientProvider from "@/providers/convex-client-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Roboto({ weight:'300',subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "WeDraw",
