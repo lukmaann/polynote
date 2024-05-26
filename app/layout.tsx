@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import ConvexClientProvider from "@/providers/convex-client-provider";
 
-const inter = Roboto({ weight:'300',subsets: ["latin"] });
+const inter = Poppins({ weight:['600','400'],subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "WeDraw",
@@ -17,7 +17,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} w-[100vw]`}>
+        
         <ConvexClientProvider>
 
         {children}

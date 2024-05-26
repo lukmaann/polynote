@@ -2,7 +2,7 @@ import { authMiddleware ,redirectToSignIn} from "@clerk/nextjs";
  
 export default authMiddleware({
   // Routes that can be accessed while signed out
-  publicRoutes: ['/'],
+  publicRoutes: ['/','/sign-in','/sign-up'],
   // Routes that can always be accessed, and have
   // no authentication information
   ignoredRoutes: ['/no-auth-in-this-route'],

@@ -1,3 +1,4 @@
+import { url } from "inspector"
 import type { Config } from "tailwindcss"
 
 const config = {
@@ -18,12 +19,15 @@ const config = {
       },
     },
     extend: {
+     cursor:{
+      'custom':"url('/cursor.png',auto)"
+     },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        foreground: "hsl(var(--foreground))",  
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
