@@ -2,6 +2,7 @@
 
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import SearchBar from "./search-input";
+import PrimimumButton from "@/components/ui/custom/PrimimumButton";
 
 
 const Navbar=()=>{
@@ -14,10 +15,15 @@ const Navbar=()=>{
             <SearchBar/>
 
            </div>
+          
+
             
-            <div className="rounded-full p-1 hover:border-gray-400 border-2   ">
+           <div className="flex gap-x-6">
+            <PrimimumButton/>
+           <div className="rounded-full p-1 hover:border-gray-400 border-2   ">
             <UserButton/>
             </div>
+           </div>
             
 
            

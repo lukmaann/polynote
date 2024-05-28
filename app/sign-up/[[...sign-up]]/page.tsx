@@ -17,7 +17,8 @@ export default function Page() {
           appearance={{
             baseTheme: neobrutalism,
             elements: {
-              
+              form:"hidden",
+              dividerRow:"hidden",
               card: "border-none shadow-none "
             },
             variables: {

@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Poppins } from "next/font/google";
 import { Roboto } from "next/font/google"; // Importing another font
 import Link from "next/link";
-import { MoveRight, MoveUpRight, Unlock } from "lucide-react";
+import { MoveRight, MoveUpRight, Unlock,CircleUserRound } from "lucide-react";
+
 import Hint from "./home/_components/hint";
 
 const poppinsFont = Poppins({ weight: '600', subsets: ["latin"] });
@@ -15,10 +16,9 @@ export default function Home() {
       <nav className="p-2 h-[10%] flex items-center text-white bg-black px-5 z-10">
         <Image src="/logo1.png" alt="Logo" className="w-[4%] object-contain hover:cursor-pointer max-sm:w-[20%]" width={100} height={100} />
         <div className="flex-1 flex justify-end">
-          <Link href="/sign-up">
-            <Button variant="ghost" className="rounded-3xl border border-gray-700 bg-black text-white px-4 group">
-              Sign Up Free <span className="ml-2 transition-transform group-hover:rotate-45"><MoveUpRight size={20} /></span>
-            </Button>
+          <Link href="/sign-up" className="flex items-center gap-3">
+             <CircleUserRound/> Sign up
+            
           </Link>
         </div>
       </nav>

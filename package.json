@@ -17,14 +17,21 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "convex": "^1.9.1",
+    "date-fns": "^3.6.0",
+    "formik": "^2.4.6",
     "lucide-react": "^0.336.0",
     "next": "14.1.0",
+    "next-themes": "^0.3.0",
     "query-string": "^9.0.0",
     "react": "^18",
     "react-dom": "^18",
+    "shadcn-ui": "^0.8.0",
+    "skeleton": "^0.1.2",
+    "sonner": "^1.4.41",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
-    "usehooks-ts": "^3.0.1"
+    "usehooks-ts": "^3.0.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -41,7 +41,10 @@ export const create=mutation({
         const identity=await ctx.auth.getUserIdentity();
 
         if(!identity){
+            
+            console.log("unauthorised")
             throw new Error("unauthorised");
+            
         }
 
         const randomImage=Images[Math.floor(Math.random()*Images.length)];
@@ -49,7 +52,7 @@ export const create=mutation({
         const canvas=await ctx.db.insert("canvas",{
             title:args.title,
             authorId:identity.subject,
-            authorName:identity.name!,
+            authorName:identity.name!||"User",
             orgId:args.orgId,
             imageUrl:randomImage
         })

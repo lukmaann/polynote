@@ -7,28 +7,37 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useOrganization } from "@clerk/nextjs";
 import { CircleFadingPlus } from "lucide-react";
+import { useAPiMutation } from "@/hooks/use-api-mutation";
+import { toast } from "sonner";
+import NewCanvasButton from "./newCanvasButton";
 
 
-const EmptyCanvas = () => {
-    const create = useMutation(api.canvas.create);
+interface EmptyCanvasProps{
+    orgId:string;
+}
+
+
+const EmptyCanvas = ({orgId}:EmptyCanvasProps) => {
+    const {mutate,pending} = useAPiMutation(api.canvas.create);
     const { organization } = useOrganization();
 
     const onClick = () => {
         if (!organization) return;
-        create({
+        mutate({
             title: "Untitled",
             orgId: organization.id,
+        }).then((id)=>{
+            toast.success("New Canvas Created");
+            //todo redirect to canvas
+        }).catch((err)=>{
+            toast.error("Failed to create the canvas");
         })
+       
     }
     return (
-        <div className="flex flex-col justify-center items-start">
-            <div className=" w-[180px]  h-[180px] border-dashed border-2 rounded-lg flex-col gap-4 text-gray-400  flex justify-center items-center">
-                <CircleFadingPlus size={40}/>
-                <Button onClick={onClick} variant="ghost" className="bg-black rounded-lg w-[80%] text-white">
-                    Create Canvas
-
-                </Button>
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 mt-5 pb-10 gap-5">
+            <NewCanvasButton orgId={orgId}/>
+           
 
         </div>
 

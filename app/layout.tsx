@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import ConvexClientProvider from "@/providers/convex-client-provider";
+import { Toaster } from "sonner";
 
 const inter = Poppins({ weight:['600','400'],subsets: ["latin"] });
 
@@ -20,8 +21,12 @@ export default function RootLayout({
       <body className={`${inter.className} w-[100vw]`}>
         
         <ConvexClientProvider>
+     <Toaster/>
+          {children}
 
-        {children}
+       
+
+        
         </ConvexClientProvider>
 
 

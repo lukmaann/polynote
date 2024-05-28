@@ -9,7 +9,7 @@ import { CreateOrganization } from "@clerk/nextjs";
 
 const EmptyOrg=()=>{
 
-    return <div className="flex flex-col justify-center items-center flex-1 h-full">
+    return <div className="flex flex-col justify-center items-center flex-1 h-full overflow-x-hidden">
         <Image src={"/createorg.gif"} alt="empty" height={300} width={300}/>
         <h1 className="text-lg text-center max-sm:text-sm capitalize text-gray-500 p-5">There is No active Workspace</h1>
         <Dialog>
@@ -25,6 +25,7 @@ const EmptyOrg=()=>{
                     },
                     
                     elements: {
+                       
                        
                         card: "border-none shadow-none ",
                         formButtonPrimary: "shadow-none hover:bg-white hover:text-black",
