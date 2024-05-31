@@ -61,4 +61,49 @@ export const create=mutation({
         return canvas;
 
     }
+});
+
+
+export const remove =mutation({
+    args:{
+        id:v.id("canvas")
+    },
+    handler:async(ctx,args)=>{
+        const identity=ctx.auth.getUserIdentity();
+
+        if(!identity){
+            throw new Error("Unauthorised");
+        }
+
+        await ctx.db.delete(args.id)
+    }
+
+    
+})
+
+export const update=mutation({
+    args:{
+        id:v.id("canvas"),
+        title:v.string(),
+    },
+    handler:async (ctx,args)=>{
+        const identity=ctx.auth.getUserIdentity();
+        const title=args.title.trim()
+        if(!identity){
+            throw new Error("Unauthorised");
+        }
+
+        if(!title){
+            throw new Error("Title required");
+        }
+
+        if(title.length>60){
+            throw new Error("Title length should not be more then 60")
+        }
+
+        const canvas=await ctx.db.patch(args.id,{title:args.title});
+
+        return canvas;
+
+    }
 })

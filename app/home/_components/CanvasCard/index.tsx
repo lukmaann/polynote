@@ -7,6 +7,9 @@ import Footer from "./footer";
 import { formatDistanceToNow } from "date-fns";
 import { useAuth } from "@clerk/nextjs";
 import {Skeleton} from "@/components/ui/skeleton"
+import Actions from "@/components/actions";
+import { Button } from "@/components/ui/button";
+import { MoreHorizontalIcon } from "lucide-react";
 
 interface CanvasCardProps {
     id: string,
@@ -32,6 +35,11 @@ const CanvasCard = ({ id, orgId, title, authorName, authorid, time, imageUrl, is
                 <div className="relative flex-1 bg-purple-200">
                     <Image src={imageUrl} alt="doddle" fill className="object-contain" />
                     <Overlay />
+                    <Actions id={id} title={title} side="right" >
+                        <button className="z-10 opacity-0 px-3 max-sm:opacity-100 py-2 outline-none group-hover:opacity-100 absolute right-1 top-1 p-3 ">
+                            <MoreHorizontalIcon className="text-white opacity-75 hover:opacity-100 transition-opacity"/>
+                        </button>
+                    </Actions>
                 </div>
                 <Footer
                     isFavorite={isFavorite}

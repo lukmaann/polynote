@@ -16,7 +16,7 @@ interface InviteMemberFormValues {
 
 function InviteMember() {
   const { organization, isLoaded } = useOrganization();
-  const [role, setRole] = useState<'org:member' | 'admin'>('org:member');
+  const [role, setRole] = useState<'org:member' | 'org:admin'>('org:member');
 
   const validate = (values: InviteMemberFormValues): FormikErrors<InviteMemberFormValues> => {
     try {
@@ -46,12 +46,11 @@ function InviteMember() {
 
         resetForm();
         setRole('org:member');
-        setSubmitting(false);
       } catch (error) {
-        console.log(error);
+        console.error("Error inviting member:", error); // Improved error logging
         
-        toast.error("User not Exits");
-        resetForm();
+        toast.error("Failed to send invitation. Please check the console for more details.");
+      } finally {
         setSubmitting(false);
       }
     },
@@ -75,8 +74,8 @@ function InviteMember() {
         <Button
           type="button"
           variant="outline"
-          onClick={() => setRole('admin')}
-          className={`w-1/2 p-2 text-center ${role === 'admin' ? 'bg-purple-400 hover:bg-purple-400 text-white' : 'border'}`}
+          onClick={() => setRole('org:admin')}
+          className={`w-1/2 p-2 text-center ${role === 'org:admin' ? 'bg-purple-400 hover:bg-purple-400 text-white' : 'border'}`}
         >
           Admin
         </Button>
