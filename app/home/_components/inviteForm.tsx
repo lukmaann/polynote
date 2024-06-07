@@ -47,7 +47,6 @@ function InviteMember() {
         resetForm();
         setRole('org:member');
       } catch (error) {
-        console.error("Error inviting member:", error); // Improved error logging
         
         toast.error("Failed to send invitation. Please check the console for more details.");
       } finally {

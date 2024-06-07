@@ -38,7 +38,6 @@ export const create = mutation({
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) {
-      console.log("unauthorised");
       throw new Error("unauthorised");
     }
 

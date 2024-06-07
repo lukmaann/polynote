@@ -26,7 +26,7 @@ const Hint = (
             <TooltipTrigger asChild>
                 {children}
             </TooltipTrigger>
-            <TooltipContent  className="text-white capitalize border-black bg-black " side={side} alignOffset={alignOffset} align={align} sideOffset={sideOffset}>
+            <TooltipContent  className="text-gray-200  capitalize rounded-none text-xs p-1 border-black bg-black " side={side} alignOffset={alignOffset} align={align} sideOffset={sideOffset}>
                 <p className="">
                     {label}
                 </p>

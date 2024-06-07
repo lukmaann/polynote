@@ -45,7 +45,6 @@ export const POST = async (request: Request) => {
 
   const {status,body}=await session.authorize();
 
-  console.log({userInfo})
   
 
   return new Response(body,{status})
