@@ -12,7 +12,7 @@ const SettingsButton = () => {
             </DialogTrigger>
             <DialogContent className="bg-transparent p-0 max-w-[880px] border-none">
                 <OrganizationProfile appearance={{
-                    baseTheme: neobrutalism,
+                   
                     elements: {
 
                         card: "border-none shadow-none ",

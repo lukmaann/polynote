@@ -17,14 +17,11 @@ export const useAPiMutation = (mutationFuction: any) => {
       });
   };
 
-  const logg=()=>{
-    return console.log("hello");
-    
-  }
+  
 
   return {
     mutate,
     pending,
-    logg
+    
   };
 };

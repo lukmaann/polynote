@@ -3,8 +3,9 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import ConvexClientProvider from "@/providers/convex-client-provider";
 import { Toaster } from "sonner";
+import ModalProvider from "@/providers/modal-provider";
 
-const inter = Poppins({ weight:['600','400'],subsets: ["latin"] });
+const inter = Poppins({ weight: ['600', '400'], subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "WeDraw",
@@ -19,19 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} w-[100vw]`}>
-        
+
         <ConvexClientProvider>
-     <Toaster/>
+          <Toaster />
+          <ModalProvider />
           {children}
-
-       
-
-        
         </ConvexClientProvider>
-
-
-
-
       </body>
     </html>
   );

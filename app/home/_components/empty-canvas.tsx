@@ -10,6 +10,7 @@ import { CircleFadingPlus } from "lucide-react";
 import { useAPiMutation } from "@/hooks/use-api-mutation";
 import { toast } from "sonner";
 import NewCanvasButton from "./newCanvasButton";
+import { useRouter } from "next/navigation";
 
 
 interface EmptyCanvasProps{
@@ -21,6 +22,8 @@ const EmptyCanvas = ({orgId}:EmptyCanvasProps) => {
     const {mutate,pending} = useAPiMutation(api.canvas.create);
     const { organization } = useOrganization();
 
+    const router=useRouter();
+
     const onClick = () => {
         if (!organization) return;
         mutate({
@@ -28,7 +31,7 @@ const EmptyCanvas = ({orgId}:EmptyCanvasProps) => {
             orgId: organization.id,
         }).then((id)=>{
             toast.success("New Canvas Created");
-            //todo redirect to canvas
+           router.push(`canvas/${id}`);
         }).catch((err)=>{
             toast.error("Failed to create the canvas");
         })

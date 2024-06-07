@@ -2,7 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { OrganizationSwitcher } from "@clerk/nextjs";
-import { LayoutDashboard, Star } from "lucide-react";
+import { LayoutDashboard, Star,Library} from "lucide-react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -18,6 +19,7 @@ const OrgSidebar = () => {
     const searchParams = useSearchParams();
     const { organization } = useOrganization();
     const favorite = searchParams.get("favorite");
+    const mycanvas= searchParams.get("mycanvas")
     return (
         <div className={cn(" hidden lg:flex h-full flex-col space-y-6 w-[206px] pl-5 pt-3  transition-all delay-1000 ")}>
             <div className="flex items-center gap-x-2 relative ">
@@ -34,16 +36,20 @@ const OrgSidebar = () => {
                             width: "100%",
                             padding: "6px",
                             justifyContent: "space-between",
+                        },
+                        variables: {
+                            colorPrimary: "black",
+
                         }
                     }
                 }
             } />
 
             {organization ? <div className="space-y-1 w-full flex flex-1 flex-col">
-                <Button asChild size={"lg"} variant={favorite ? "ghost" : "secondary"} className="w-full flex justify-start px-2 border">
+                <Button asChild size={"lg"} variant={favorite || mycanvas ? "ghost" : "secondary"} className="w-full flex justify-start px-2 border">
                     <Link href={"/home"}>
                         <LayoutDashboard className="h-4 w-4 mr-2" />
-                        All Canvas
+                        All Canvases
                     </Link>
 
                 </Button>
@@ -53,13 +59,22 @@ const OrgSidebar = () => {
                         query: { favorite: true }
                     }}>
                         <Star className="h-4 w-4 mr-2" />
-                        Favorite Canvas
+                        Favorite Canvases
                     </Link>
                 </Button>
-                {<SettingsButton />}
+                <Button asChild size={"lg"} variant={mycanvas ? "secondary" : "ghost"} className="w-full flex justify-start px-2 border">
+                    <Link href={{
+                        pathname: "/home",
+                        query: { mycanvas: true }
+                    }}>
+                        <Library className="h-4 w-4 mr-2" />
+                        My Canvases
+                    </Link>
+                </Button>
+                <SettingsButton />
                 <InviteButton />
 
-            </div> :<div ></div>}
+            </div> : <></>}
 
 
         </div>

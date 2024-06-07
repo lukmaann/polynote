@@ -58,6 +58,8 @@ function InviteMember() {
 
   return (
     <form onSubmit={formik.handleSubmit} className="flex flex-col w-full gap-3 p-4 max-w-md mx-auto mt-[20px]">
+
+
       <input
         type="email"
         name="emailAddress"
