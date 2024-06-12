@@ -5,11 +5,22 @@ import { OrganizationProfile } from "@clerk/nextjs";
 import { neobrutalism } from "@clerk/themes";
 import { Settings } from "lucide-react";
 import InviteMember from "./inviteForm";
-const InviteButton = () => {
+import InviteButtonTrigger from "./InviteButtonTrigger";
+
+
+
+interface inviteButtonProps{
+    collapsed:boolean;
+}
+
+const InviteButton = ({collapsed}:inviteButtonProps) => {
     return (
         <Dialog>
             <DialogTrigger>
-                <Button variant="outline" className="w-full flex justify-start px-2 border"><Plus className="h-4 w-4 mr-2" /> Invite members</Button>
+               <InviteButtonTrigger collapsed={collapsed}/>
+                
+                
+              
             </DialogTrigger>
             <DialogContent className="bg-transparent p-2 bg-white max-w-[400px] flex flex-col justify-center items-center">
                 

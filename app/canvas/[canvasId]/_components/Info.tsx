@@ -10,7 +10,6 @@ import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton"
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import OrgSidebar from "@/app/home/_components/org-sidebar";
 import { FolderEdit, Menu } from "lucide-react";
 import Hint from "@/app/home/_components/hint";
 
@@ -48,11 +47,13 @@ const Info = ({ canvasId }: InfoProps) => {
 
 
 
-            <Button variant="ghost" className="text-xs rounded-none text-start overflow-hidden hover:bg-transparent h-full w-[calc(100%-10%)] p-1 " >
+           <Hint label="canvas name" side="bottom">
+           <Button variant="ghost" className="text-xs rounded-none text-start overflow-hidden hover:bg-transparent h-full w-[calc(100%-10%)] p-1 " >
                 <span className="w-full overflow-x-clip ">
                     {data.title}
                 </span>
             </Button>
+           </Hint>
             
                 <Actions title="" side="bottom" id={data._id} authorId={data.authorId}>
                     <Button  size="icon" className="rounded-none hove bg-transparent px-2 hover:bg-transparent text-black ">

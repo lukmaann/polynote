@@ -7,6 +7,7 @@ import Participants from "./Participants";
 import ToolBar, { ToolBarSkeleton } from "./ToolBar";
 import { ParticipantsSkeleton } from "./Participants";
 import Logo from "./Logo";
+import { UndoBarSkeleton } from "./undoBar";
 
 
 const Loading=()=>{
@@ -19,6 +20,7 @@ const Loading=()=>{
             <InfoSkeleton/>
             <ParticipantsSkeleton/>
             <ToolBarSkeleton/>
+            <UndoBarSkeleton/>
 
         </main>
     )

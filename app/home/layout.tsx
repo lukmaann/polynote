@@ -2,7 +2,7 @@
 import Loader from "@/components/ui/auth/loading";
 import SideBar from "./_components/sidebar";
 import { useConvexAuth } from "convex/react";
-import OrgSidebar from "./_components/org-sidebar";
+import OrgSidebar from "./_components/orgsidebar";
 import Navbar from "./_components/navbar";
 
 

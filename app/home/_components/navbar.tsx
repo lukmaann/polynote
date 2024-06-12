@@ -19,6 +19,9 @@ const Navbar = () => {
 
 
             <div className="flex gap-x-6">
+            
+               
+            
                 <PrimimumButton />
                 <div className="rounded-full p-1 hover:border-gray-400 border-2   ">
                     <UserButton />

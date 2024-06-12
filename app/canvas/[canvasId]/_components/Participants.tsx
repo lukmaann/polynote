@@ -32,7 +32,7 @@ const Participants = () => {
     const hasMoreUsers = others.length > MAX_USERS;
 
     return (
-        <div className="bg-white rounded-md p-3 items-center shadow-md absolute bottom-2 right-2 flex">
+        <div className="bg-white rounded-md p-4 h-11 items-center shadow-md absolute bottom-2 right-2 flex">
             <div className="flex gap-2 ">
                 {myself && (
                     <UserAvatar
