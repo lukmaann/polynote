@@ -15,20 +15,14 @@ interface inviteButtonProps{
 
 const InviteButton = ({collapsed}:inviteButtonProps) => {
     return (
-        <Dialog>
+        <Dialog>  
             <DialogTrigger>
                <InviteButtonTrigger collapsed={collapsed}/>
-                
-                
-              
             </DialogTrigger>
-            <DialogContent className="bg-transparent p-2 bg-white max-w-[400px] flex flex-col justify-center items-center">
-                
+            <DialogContent className="bg-transparent p-2 max-sm:w-[90%] rounded-sm bg-white max-w-[400px] flex flex-col justify-center items-center"> 
                 <InviteMember/>
-
             </DialogContent>
         </Dialog>
     )
-}
-
+} 
 export default InviteButton;

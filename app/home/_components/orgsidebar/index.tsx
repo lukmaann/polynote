@@ -23,17 +23,16 @@ const OrgSidebar = () => {
     const [collapsed, setCollapsed] = useState(true);
     const searchParams = useSearchParams();
     const { organization } = useOrganization();
-    const favorite = searchParams.get("favorite") ||"";
-    const mycanvas = searchParams.get("mycanvas")|| "";
+    const favorite = searchParams.get("favorite") || "";
+    const mycanvas = searchParams.get("mycanvas") || "";
 
     return (
         <div className={cn("hidden text-muted-foreground relative lg:flex h-full flex-col space-y-6 pl-3 pt-3 transition-all duration-500", { "w-[60px] ": collapsed, "w-[206px]": !collapsed })}>
             <div className="flex items-center justify-between relative">
-                    
-                <Image src={'/logo.png'} width={60} height={60} alt="logo" className="cursor-pointer" onClick={() => setCollapsed(!collapsed)}  />
+
+                <Image src={'/logo.png'} width={60} height={60} alt="logo" className="cursor-pointer" onClick={() => setCollapsed(!collapsed)} />
                 {/* <Image src={'/logo.png'} width={60} height={60} alt="logo" className="cursor-pointer"  /> */}
 
-             
             </div>
             {!collapsed && (
                 <OrganizationSwitcher hidePersonal appearance={{
@@ -51,22 +50,20 @@ const OrgSidebar = () => {
                     }
                 }} />
             )}
-         
-              
+
+
             {organization && (
                 <div className="space-y-1 w-full flex flex-1 flex-col">
-                    <AllCanvasesButton collapsed={collapsed} favorite={favorite} mycanvas={mycanvas}/>
-                    <FavoriteButton collapsed={collapsed} favorite={favorite} mycanvas={mycanvas}/>
-                    <MyCanvasButton collapsed={collapsed} favorite={favorite} mycanvas={mycanvas}/>
+                    <AllCanvasesButton collapsed={collapsed} favorite={favorite} mycanvas={mycanvas} />
+                    <FavoriteButton collapsed={collapsed} favorite={favorite} mycanvas={mycanvas} />
+                    <MyCanvasButton collapsed={collapsed} favorite={favorite} mycanvas={mycanvas} />
                     
-                   
-                   
-                   <div className="absolute   bottom-5 space-y-1 w-full flex-1 flex flex-col">
-                    <hr className="w-[70%] m-auto" />
-                   <SettingsButton collapsed={collapsed} />
-                     <InviteButton collapsed={collapsed}/>
-                   </div>
-                   
+                    <div className="absolute   bottom-5 space-y-1 w-full flex-1 flex flex-col">
+                        <hr className="w-[70%] m-auto" />
+                        <SettingsButton collapsed={collapsed} />
+                        <InviteButton collapsed={collapsed} />
+                    </div>
+
                 </div>
             )}
         </div>

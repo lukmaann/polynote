@@ -8,7 +8,6 @@ interface RenameProps{
     initialValues:typeof defaultValues;
     onOpen:(id:string,title:string)=>void;
     onClose:()=>void;
-    
 }
 
 export const useRenameModal=create<RenameProps>((set)=>({

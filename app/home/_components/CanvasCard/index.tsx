@@ -13,6 +13,8 @@ import { MoreHorizontalIcon } from "lucide-react";
 import { api } from "@/convex/_generated/api";
 import { useAPiMutation } from "@/hooks/use-api-mutation";
 import { toast } from "sonner";
+
+
 interface CanvasCardProps {
     id: string,
     orgId: string,
@@ -68,8 +70,6 @@ const CanvasCard = ({ id, orgId, title, authorName, authorid, time, imageUrl, is
                     authorLabel={authorLabel}
                     time={createdAtLabel}
                 />
-
-
             </div>
         </Link>
     )

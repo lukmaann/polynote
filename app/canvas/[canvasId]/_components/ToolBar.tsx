@@ -1,4 +1,5 @@
-"use client"
+
+gc"use client"
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "convex/react";
@@ -25,7 +26,7 @@ const ToolBar = ({ canvasId, canvasState, setCanvasState }: ToolBarProps) => {
         return <ToolBarSkeleton />
     }
     return (
-        <div className="absolute top-4 p-1 h-11  flex gap-x-4   shadow-md right-1/2 translate-x-1/2 transform bg-white rounded-lg border ">
+        <div className="absolute top-4 p-1 h-11  flex gap-x-4   shadow-md right-1/2 translate-x-1/2 transform bg-white rounded-lg border max-sm:w-max ">
             <div className="flex gap-x-1 justify-center rounded-md p-1.5 text-white items-center   ">
                 <div className="text-black ">
 

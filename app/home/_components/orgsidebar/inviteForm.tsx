@@ -47,8 +47,10 @@ function InviteMember() {
         resetForm();
         setRole('org:member');
       } catch (error) {
+        console.log(error);
         
-        toast.error("Failed to send invitation. Please check the console for more details.");
+        
+        toast.error("Failed to send invitation.");
       } finally {
         setSubmitting(false);
       }
@@ -57,8 +59,6 @@ function InviteMember() {
 
   return (
     <form onSubmit={formik.handleSubmit} className="flex flex-col w-full gap-3 p-4 max-w-md mx-auto mt-[20px]">
-
-
       <input
         type="email"
         name="emailAddress"

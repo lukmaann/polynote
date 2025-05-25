@@ -3,23 +3,21 @@ import Room from "@/components/room";
 import Loading from "./_components/loading";
 
 
-interface CanvasPageProps{
-    params:{
-        canvasId:string;
+interface CanvasPageProps {
+    params: {
+        canvasId: string;
     }
 }
 
-const CanvasPage=({params}:CanvasPageProps)=>{
+const CanvasPage = ({ params }: CanvasPageProps) => {
 
     // return <Loading/>
     return (
-    <Room roomId={params.canvasId} fallback={<Loading/>}>
-    <Canvas canvasId={params.canvasId}/>
+        <Room roomId={params.canvasId} fallback={<Loading />}>
+            <Canvas canvasId={params.canvasId} />
+        </Room>
 
-
-    </Room>
-    
-)
+    )
 }
 
 

@@ -17,7 +17,6 @@ export const get = query({
     }
 
     if (args.favorite) {
-      
       const favoritedCanvas = await ctx.db
         .query("userFavorties")
         .withIndex("by_user_org", (q) =>
@@ -25,26 +24,25 @@ export const get = query({
         )
         .order("desc")
         .collect();
-        
-        const ids=favoritedCanvas.map((canvas)=>canvas.canvasId);
 
-        const canvases= await getAllOrThrow(ctx.db,ids);
+      const ids = favoritedCanvas.map((canvas) => canvas.canvasId);
 
-        return canvases.map((canvas)=>({
-          ...canvas,
-          isFavorite:true
-        }));
+      const canvases = await getAllOrThrow(ctx.db, ids);
 
-       
+      return canvases.map((canvas) => ({
+        ...canvas,
+        isFavorite: true,
+      }));
     }
 
     if (args.mycanvas) {
       const canvases = await ctx.db
         .query("canvas")
-        .withIndex("by_authorId_orgId", (q) => q.eq("authorId", identity.subject).eq("orgId",args.orgId))
+        .withIndex("by_authorId_orgId", (q) =>
+          q.eq("authorId", identity.subject).eq("orgId", args.orgId)
+        )
         .order("desc")
         .collect();
-
       return canvases;
     }
 

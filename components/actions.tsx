@@ -15,13 +15,13 @@ interface ActionsProps {
     side?: DropdownMenuContentProps["side"];
     sideOffset?: DropdownMenuContentProps["sideOffset"];
     id: string;
-    authorId:string
+    authorId: string
 }
 
-const Actions = ({ children, title, side, sideOffset, id,authorId }: ActionsProps) => {
-    const { userId,orgRole } = useAuth();
+const Actions = ({ children, title, side, sideOffset, id, authorId }: ActionsProps) => {
+    const { userId, orgRole } = useAuth();
     const { mutate, pending } = useAPiMutation(api.canvas.remove);
-    const {onOpen}=useRenameModal();
+    const { onOpen } = useRenameModal();
 
     const CopyLink = () => {
         navigator.clipboard.writeText(`${window.location.origin}/canvas/${id}`).then(() => {
@@ -38,9 +38,9 @@ const Actions = ({ children, title, side, sideOffset, id,authorId }: ActionsProp
         });
 
     }
-   
 
-    const canDelete=orgRole==="org:admin"||authorId===userId;
+
+    const canDelete = orgRole === "org:admin" || authorId === userId;
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -56,26 +56,16 @@ const Actions = ({ children, title, side, sideOffset, id,authorId }: ActionsProp
                     <Link2 className="h-4 w-4 mr-2" /> Copy link
                 </DropdownMenuItem>
 
-              {canDelete?<DropdownMenuItem className="p-2 cursor-pointer" onClick={()=>{onOpen(id,title)}}>
+                {canDelete ? <DropdownMenuItem className="p-2 cursor-pointer" onClick={() => { onOpen(id, title) }}>
                     <Pencil className="h-4 w-4 mr-2" /> Rename
-                </DropdownMenuItem>:<></>}
+                </DropdownMenuItem> : <></>}
 
 
-                {canDelete?<ConfirmModal title="Delete Canvas?" disription="This will delete the canvas and all its content" disabled={pending} onConfirm={DeleteCanvas}>
+                {canDelete ? <ConfirmModal title="Delete Canvas?" disription="This will delete the canvas and all its content" disabled={pending} onConfirm={DeleteCanvas}>
                     <Button variant="ghost" className="p-2 cursor-pointer flex w-full justify-start" >
                         <Trash2 className="h-4 w-4 mr-2" /> Delete
                     </Button>
-                </ConfirmModal>:<></>}
-
-
-
-
-
-
-
-
-
-
+                </ConfirmModal> : <></>}
 
             </DropdownMenuContent>
         </DropdownMenu>

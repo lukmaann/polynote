@@ -13,7 +13,6 @@ const Cursors = () => {
             ids.map((connectionId) => {
                 return <Cursor key={connectionId}
                     connectionId={connectionId}
-
                 />
             })
         }
