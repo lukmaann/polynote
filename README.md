@@ -1,6 +1,4 @@
-Below is an updated version of the **WeDraw README** with improvements for clarity, structure, and additional details based on the `package.json` file and the existing README. The update enhances the content with better formatting, additional sections for clarity, and more precise instructions, while maintaining the original structure and intent.
 
----
 
 # 🎨 WeDraw
 
