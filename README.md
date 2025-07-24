@@ -172,4 +172,4 @@ For questions or feedback, reach out via the [GitHub repository](https://github.
 7. **Improved Formatting**: Used consistent markdown formatting (e.g., tables, headers, code blocks) for readability.
 8. **Contact Section**: Added a contact section for clarity on how to reach out.
 
-This updated README is more comprehensive, user-friendly, and aligned with the project’s `package.json`. If you need further tweaks (e.g., adding a screenshot, specific feature details, or a demo link), let me know!
+
