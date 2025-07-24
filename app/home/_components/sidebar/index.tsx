@@ -10,8 +10,6 @@ const SideBar=()=>{
 
             <List/>
             <NewButton/>
-            
-
         </aside>
     )
 }

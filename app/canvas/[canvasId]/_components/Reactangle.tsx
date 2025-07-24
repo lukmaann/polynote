@@ -1,3 +1,4 @@
+import { colorToCss } from "@/lib/utils";
 import { RectangleLayer } from "@/types/canvas";
 
 interface RectangleProps {
@@ -22,9 +23,9 @@ const Rectangle = ({ id, layer, selectionColor, onPointerDown }: RectangleProps)
             y={0}
             width={width}
             height={height}
-            strokeWidth={1}
-            fill={selectionColor || "#000"}
-            stroke="transparent"
+            strokeWidth={2}
+            fill={fill?colorToCss(fill):"#000"}
+            stroke={selectionColor ||  "transparent"}
         />
     );
 };

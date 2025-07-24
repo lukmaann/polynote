@@ -1,5 +1,5 @@
 
-gc"use client"
+"use client"
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "convex/react";
