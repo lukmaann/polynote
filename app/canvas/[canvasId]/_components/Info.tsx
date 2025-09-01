@@ -42,7 +42,7 @@ const Info = ({ canvasId }: InfoProps) => {
 
 
     return (
-        <div className="absolute max-sm:hidden max-w-[150px]  top-4  flex gap-2 rounded-lg capitalize bg-[#ECECF4] border-dashed border h-10 border-black right-2  p-0 pl-2 rounded-md justify-start items-center ">
+        <div className="absolute max-sm:hidden max-w-[150px]  top-4  flex gap-2 rounded-lg capitaliz   h-10 border-black right-2  p-0 pl-2 rounded-md justify-start items-center ">
             
 
 

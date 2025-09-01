@@ -178,7 +178,10 @@ const Canvas = ({ canvasId }: CanvasProps) => {
   return (
     <main className="h-[100vh] w-full bg-[#FDF8F6] flex justify-center items-center touch-none">
       <Info canvasId={canvasId} />
-      <Logo />
+      {/* <Logo /> */}
+      <div className="w-10 absolute top-4 left-4 h-10 bg-gradient-to-r from-purple-600 to-purple-400 rounded-lg flex items-center justify-center">
+          <Palette className="w-6 h-6 text-white" />
+        </div>
       <Participants />
       <ToolBar
         canvasId={canvasId}
