@@ -116,7 +116,7 @@ const Canvas = ({ canvasId }: CanvasProps) => {
   );
 
   const onPointerUp = useMutation(
-    ({}, e) => {
+    ({ }, e) => {
       const point = pointerEventToCanvasPoint(e, camera);
       console.log({
         point,
@@ -161,9 +161,9 @@ const Canvas = ({ canvasId }: CanvasProps) => {
 
       history.pause();
       e.stopPropagation();
-      const point=pointerEventToCanvasPoint(e, camera);
-      if(!self.presence.selection.includes(layerId)){
-        setMyPresence({ selection: [ layerId] },{addToHistory: true});
+      const point = pointerEventToCanvasPoint(e, camera);
+      if (!self.presence.selection.includes(layerId)) {
+        setMyPresence({ selection: [layerId] }, { addToHistory: true });
       }
 
       setCanvasState({
@@ -172,29 +172,34 @@ const Canvas = ({ canvasId }: CanvasProps) => {
         current: point,
       });
     },
-    [ setCanvasState,camera,history,canvasState.mode]
+    [setCanvasState, camera, history, canvasState.mode]
   );
 
   return (
     <main className="h-[100vh] w-full bg-[#FDF8F6] flex justify-center items-center touch-none">
-      <Info canvasId={canvasId} />
+      {/* <Info canvasId={canvasId} /> */}
       {/* <Logo /> */}
-      <div className="w-10 absolute top-4 left-4 h-10 bg-gradient-to-r from-purple-600 to-purple-400 rounded-lg flex items-center justify-center">
+      {/* <div className="w-10 absolute top-4 left-4 h-10 bg-gradient-to-r from-purple-600 to-purple-400 rounded-lg flex items-center justify-center">
           <Palette className="w-6 h-6 text-white" />
-        </div>
+        </div> */}
       <Participants />
       <ToolBar
         canvasId={canvasId}
         canvasState={canvasState}
         setCanvasState={setCanvasState}
+        undo={history.undo}
+        redo={history.redo}
+        canUndo={canUndo}
+        canRedo={canRedo}
       />
-      <UndoBar
+
+      {/* <UndoBar
         canvasId={canvasId}
         canRedo={canRedo}
         canUndo={canUndo}
         redo={history.redo}
         undo={history.undo}
-      />
+      /> */}
 
       <svg
         onWheel={onWheel}

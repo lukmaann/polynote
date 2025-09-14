@@ -92,6 +92,7 @@ export const update = mutation({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     const title = args.title.trim();
+
     if (!identity) {
       throw new Error("Unauthorised");
     }
@@ -104,9 +105,13 @@ export const update = mutation({
       throw new Error("Title length should not be more then 60");
     }
 
-    const canvas = await ctx.db.patch(args.id, { title: args.title });
+    // Patch the document
+    await ctx.db.patch(args.id, { title });
 
-    return canvas;
+    // ✅ Fetch the updated document and return it
+    const updatedCanvas = await ctx.db.get(args.id);
+
+    return updatedCanvas;
   },
 });
 
@@ -172,7 +177,7 @@ export const unfavorite = mutation({
       .unique();
 
     if (!existingFavorite) {
-      throw new Error(" favorited canvas not found");
+      throw new Error("favorited canvas not found");
     }
 
     await ctx.db.delete(existingFavorite._id);

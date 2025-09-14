@@ -17,11 +17,7 @@ const Loading=()=>{
             <Loader className="h-6 w-6 text-muted-foreground animate-spin"/>
             <h1 className="mx-3 text-xs text-muted-foreground"> Loading the interface</h1>
             {/* <Logo/> */}
-            <InfoSkeleton/>
-            <ParticipantsSkeleton/>
-            <ToolBarSkeleton/>
-            <UndoBarSkeleton/>
-
+         
         </main>
     )
 }

@@ -1,5 +1,4 @@
-
-"use client"
+"use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "convex/react";
@@ -7,126 +6,156 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import ToolButton from "./tool-button";
 import { CanvasMode, CanvasState, LayerType } from "@/types/canvas";
-import { Circle, MousePointer2, MoveRight, Pencil, Square, StickyNote, Type } from "lucide-react";
+import {
+  Circle,
+  MousePointer2,
+  Pencil,
+  Square,
+  StickyNote,
+  FileText,
+  Undo,
+  Redo,
+} from "lucide-react";
+import { useModeStore } from "@/store/textorcanvas";
 
 interface ToolBarProps {
-    canvasId: string
-    canvasState: CanvasState;
-    setCanvasState: (newState: CanvasState) => void;
+  canvasId: string;
+  canvasState: CanvasState;
+  setCanvasState: (newState: CanvasState) => void;
 
+  // ✅ add undo/redo props from UndoBar
+  undo: () => void;
+  redo: () => void;
+  canUndo: boolean;
+  canRedo: boolean;
 }
 
-const ToolBar = ({ canvasId, canvasState, setCanvasState }: ToolBarProps) => {
+const ToolBar = ({
+  canvasId,
+  canvasState,
+  setCanvasState,
+  undo,
+  redo,
+  canUndo,
+  canRedo,
+}: ToolBarProps) => {
+  const data = useQuery(api.canvas.get, {
+    id: canvasId as Id<"canvas">,
+  });
 
-    const data = useQuery(api.canvas.get, {
-        id: canvasId as Id<"canvas">
-    })
+  // Global store for switching Canvas <-> Editor
+  const { mode, setMode } = useModeStore();
 
-    if (!data) {
-        return <ToolBarSkeleton />
-    }
-    return (
-        <div className="absolute top-4 p-1 h-11  flex gap-x-4   shadow-md right-1/2 translate-x-1/2 transform bg-white rounded-lg border max-sm:w-max ">
-            <div className="flex gap-x-1 justify-center rounded-md p-1.5 text-white items-center   ">
-                <div className="text-black ">
+  if (!data) {
+    return <ToolBarSkeleton />;
+  }
 
-                    <ToolButton label="select"
-                        isActive={canvasState.mode == CanvasMode.None || canvasState.mode == CanvasMode.SelectionNet ||
-                            canvasState.mode == CanvasMode.Translating ||
-                            canvasState.mode == CanvasMode.Resizing ||
-                            canvasState.mode == CanvasMode.Pressing}
-                        icon={MousePointer2}
-                        onClick={() => { setCanvasState({ mode: CanvasMode.None }) }}
+  return (
+    <div className="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-2 py-1 bg-white border border-gray-200 shadow-md rounded-xl z-50">
+      {/* Undo / Redo */}
+      <ToolButton
+        label="Undo"
+        isActive={false}
+        icon={Undo}
+        onClick={undo}
+        isDisabled={!canUndo}
+      />
+      <ToolButton
+        label="Redo"
+        isActive={false}
+        icon={Redo}
+        onClick={redo}
+        isDisabled={!canRedo}
+      />
 
-                    />
+      {/* Divider */}
+      <div className="w-px h-6 bg-gray-200 mx-2" />
 
-                    <ToolButton label="Text"
-                        isActive={
-                            canvasState.mode == CanvasMode.Inserting &&
-                            canvasState.layerType == LayerType.Text
-                        }
-                        icon={Type}
-                        onClick={() => {
-                            setCanvasState({
-                                mode: CanvasMode.Inserting,
-                                layerType: LayerType.Text
-                            })
-                        }} />
+      {/* Select tool */}
+      <ToolButton
+        label="Select"
+        isActive={
+          canvasState.mode == CanvasMode.None ||
+          canvasState.mode == CanvasMode.SelectionNet ||
+          canvasState.mode == CanvasMode.Translating ||
+          canvasState.mode == CanvasMode.Resizing ||
+          canvasState.mode == CanvasMode.Pressing
+        }
+        icon={MousePointer2}
+        onClick={() => setCanvasState({ mode: CanvasMode.None })}
+      />
 
+      {/* Rectangle tool */}
+      <ToolButton
+        label="Rectangle"
+        isActive={
+          canvasState.mode == CanvasMode.Inserting &&
+          canvasState.layerType == LayerType.Rectangle
+        }
+        icon={Square}
+        onClick={() =>
+          setCanvasState({
+            mode: CanvasMode.Inserting,
+            layerType: LayerType.Rectangle,
+          })
+        }
+      />
 
+      {/* Ellipse tool */}
+      <ToolButton
+        label="Ellipse"
+        isActive={
+          canvasState.mode == CanvasMode.Inserting &&
+          canvasState.layerType == LayerType.Ellipse
+        }
+        icon={Circle}
+        onClick={() =>
+          setCanvasState({
+            mode: CanvasMode.Inserting,
+            layerType: LayerType.Ellipse,
+          })
+        }
+      />
 
-                    <ToolButton
-                        label="Rectangle"
-                        isActive={
-                            canvasState.mode==CanvasMode.Inserting &&
-                            canvasState.layerType==LayerType.Rectangle
-                        }
-                        icon={Square}
-                        onClick={() => {
-                            setCanvasState({
-                                mode:CanvasMode.Inserting,
-                                layerType:LayerType.Rectangle
-                            })
-                         }} /> 
+      {/* Pencil tool */}
+      <ToolButton
+        label="Pen"
+        isActive={canvasState.mode == CanvasMode.Pencil}
+        icon={Pencil}
+        onClick={() => setCanvasState({ mode: CanvasMode.Pencil })}
+      />
 
-                    <ToolButton
-                        label="Ellipse"
-                        isActive={
-                            canvasState.mode==CanvasMode.Inserting &&
-                            canvasState.layerType==LayerType.Ellipse
-                        }
-                        icon={Circle}
-                        onClick={() => {
-                            setCanvasState({
-                                mode:CanvasMode.Inserting,
-                                layerType:LayerType.Ellipse
-                            })
-                         }} />
+      {/* Sticky Note tool */}
+      <ToolButton
+        label="Sticky Note"
+        isActive={
+          canvasState.mode == CanvasMode.Inserting &&
+          canvasState.layerType == LayerType.Note
+        }
+        icon={StickyNote}
+        onClick={() =>
+          setCanvasState({
+            mode: CanvasMode.Inserting,
+            layerType: LayerType.Note,
+          })
+        }
+      />
 
-                    <ToolButton
-                        label="Pen"
-                        isActive={
-                            canvasState.mode==CanvasMode.Pencil
-                        }
-                        icon={Pencil}
-                        onClick={() => {
-                            setCanvasState({
-                                mode:CanvasMode.Pencil
-                            })
-                         }} />
-
-                    <ToolButton
-                        label="Sticky Note"
-                        isActive={
-                            canvasState.mode==CanvasMode.Inserting &&
-                            canvasState.layerType==LayerType.Note
-                            
-
-                        }
-                        icon={StickyNote}
-                        onClick={() => {setCanvasState({
-                            mode:CanvasMode.Inserting ,
-                            layerType:LayerType.Note
-                        })}} />
-
-                    {/* <ToolButton
-                        label="Arrow"
-                        isActive={false}
-                        icon={MoveRight}
-                        onClick={() => { }} /> */}
-
-                </div>
-
-            </div>
-        </div>
-    )
-}
+      {/* Switch to Editor */}
+      <ToolButton
+        label="Editor"
+        isActive={mode === "editor"}
+        icon={FileText}
+        onClick={() => setMode("editor")}
+      />
+    </div>
+  );
+};
 
 export const ToolBarSkeleton = () => {
-    return (
-        <Skeleton className="absolute top-4 p-1 h-11  flex gap-x-4 w-[250px] max-sm:w-[90%] shadow-lg right-1/2 translate-x-1/2 transform bg-white rounded-lg border " />
-    )
-}
-
+  return (
+    <Skeleton className="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-2 py-1 w-[340px] h-11 bg-white border border-gray-200 shadow-md rounded-xl" />
+  );
+};
 
 export default ToolBar;
