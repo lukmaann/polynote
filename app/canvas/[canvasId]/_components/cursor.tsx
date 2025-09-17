@@ -1,6 +1,6 @@
 
 import { memo } from "react";
-import { connectionIdtoColor } from "@/lib/utils";
+import { connectionIdToColor } from "@/lib/utils";
 import { MousePointer2 } from "lucide-react";
 import { useOther } from "@/liveblocks.config";
 
@@ -30,8 +30,8 @@ const Cursor = memo(({
             height={50}
             width={name.length * 10 + 24}
             className="realtive drop-shadow-md">
-            <MousePointer2 className="h-5 w-5 " style={{ fill: connectionIdtoColor(connectionId), color: connectionIdtoColor(connectionId) }} />
-            <div className="absolute left-5 px-2  rounded-md font-mono top-5 text-xs " style={{ backgroundColor: connectionIdtoColor(connectionId) }}>
+            <MousePointer2 className="h-5 w-5 " style={{ fill: connectionIdToColor(connectionId), color: connectionIdToColor(connectionId) }} />
+            <div className="absolute left-5 px-2  rounded-md font-mono top-5 text-xs " style={{ backgroundColor: connectionIdToColor(connectionId) }}>
                 {name}
             </div>
         </foreignObject>
