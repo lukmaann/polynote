@@ -28,7 +28,7 @@ const NewCanvasButton = ({ orgId }: newCanvasButtonProps) => {
     return <div className=" aspect-[100/127] max-sm:aspect-[100/50] border-dashed border-2 rounded-lg flex-col gap-4 text-gray-400  flex justify-center items-center">
         <CircleFadingPlus size={40} />
         <Button onClick={onClick} disabled={pending} variant="ghost" className="bg-black rounded-lg w-[80%] text-white">
-            Create Canvas
+            Create Document
         </Button>
     </div>
 }

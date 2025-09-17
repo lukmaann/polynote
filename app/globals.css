@@ -160,7 +160,14 @@ body,
 #__next {
   max-width: 100%;
   min-height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;  /* ✅ prevent horizontal scroll */
+  overflow-y: auto;    /* ✅ allow vertical scroll */
+}
+
+/* If you want only editor content to scroll */
+.editor-container {
+  max-height: none;
+  overflow-y: visible;
 }
 
 html.grabbing {
@@ -177,7 +184,7 @@ html.grabbing * {
 .text-editor p.tiptap-empty:first-child::before {
   color: #adb5bd;
   content: attr(data-placeholder);
-
+  
   float: left;
   height: 0;
   pointer-events: none;
@@ -185,7 +192,6 @@ html.grabbing * {
 
 .text-editor .tiptap-paragraph {
   margin: var(--space-8) 0;
-  /* background-color: #0d0d0d; */
 }
 
 .text-editor .tiptap-hr {
@@ -345,6 +351,7 @@ html.grabbing * {
   padding: 2px 6px;
   pointer-events: none;
 }
+
 .tiptap-root:focus {
   outline: none !important;
   border-color: transparent !important;
@@ -352,4 +359,3 @@ html.grabbing * {
 }
 
 /* Make inline section buttons always black */
-

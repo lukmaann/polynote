@@ -9,7 +9,7 @@ import { api } from "@/convex/_generated/api";
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 const liveblocks = new Liveblocks({
   secret:
-    "sk_dev_C8owv1crFPQyoj6cGOsEGdW23XZcBWXVrKIVr4kWTt7p-gihp_GxQybyMABkmop2",
+    process.env.LIVEBLOCKS_SECRET!,
 });
 
 //creatong a post route for handling authentication in room

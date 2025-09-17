@@ -21,10 +21,12 @@ import {
   Monitor,
   Layers,
   Menu,
-  X
+  X,
+  PenLine,
+  Type
 } from "lucide-react";
 
-export default function WeDraw() {
+export default function PolyNote() {
   const router = useRouter();
   const [activeFeature, setActiveFeature] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -33,38 +35,38 @@ export default function WeDraw() {
     {
       icon: <Users className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />,
       title: "Real-time Collaboration",
-      description: "Work together seamlessly with unlimited team members. See changes instantly as your team creates and edits.",
-      details: "Multi-cursor support, live presence indicators, and conflict-free collaborative editing"
+      description: "Write and draw together in a single shared space. See every keystroke and brushstroke live.",
+      details: "Multi-cursor editing, live presence, and conflict-free real-time sync"
+    },
+    {
+      icon: <Type className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />,
+      title: "Powerful Text Editing",
+      description: "Rich-text editor with formatting, headings, lists, links, and more.",
+      details: "Supports collaborative note-taking, structured documents, and live editing"
+    },
+    {
+      icon: <PenLine className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />,
+      title: "Canvas + Whiteboard",
+      description: "Sketch ideas, annotate documents, or draw diagrams alongside your notes.",
+      details: "Freehand drawing, shapes, colors, and infinite canvas"
     },
     {
       icon: <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />,
       title: "Lightning Fast Performance",
-      description: "Optimized for speed with smooth drawing, instant sync, and responsive interactions even with complex diagrams.",
-      details: "WebGL-accelerated rendering, efficient data structures, and smart caching"
-    },
-    {
-      icon: <Shield className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />,
-      title: "Enterprise Security",
-      description: "Bank-grade encryption, SOC 2 compliance, and granular permissions to keep your ideas secure.",
-      details: "End-to-end encryption, SSO integration, and audit trails"
-    },
-    {
-      icon: <Palette className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />,
-      title: "Advanced Drawing Tools",
-      description: "Professional-grade tools including custom brushes, vector shapes, smart connectors, and infinite canvas.",
-      details: "Pressure-sensitive drawing, shape libraries, and advanced typography"
+      description: "Instant updates and smooth interactions even with big teams.",
+      details: "Optimized rendering and efficient real-time data structures"
     },
     {
       icon: <Cloud className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />,
-      title: "Cloud-Native Architecture",
-      description: "Access your work anywhere with automatic sync, version history, and 99.9% uptime guarantee.",
-      details: "Real-time backup, conflict resolution, and offline support"
+      title: "Cloud Sync Everywhere",
+      description: "Access your notes and canvases from any device, always up to date.",
+      details: "Automatic sync, backups, and offline-first support"
     },
     {
-      icon: <Smartphone className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />,
-      title: "Cross-Platform Support",
-      description: "Native apps for web, desktop, and mobile with seamless sync across all your devices.",
-      details: "iOS, Android, Windows, macOS, and Linux support"
+      icon: <Shield className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />,
+      title: "Secure by Design",
+      description: "Your ideas stay safe with enterprise-grade security and permissions.",
+      details: "Encryption, role-based access, and audit history"
     }
   ];
 
@@ -72,42 +74,42 @@ export default function WeDraw() {
     {
       name: "Sarah Chen",
       role: "Design Director, TechCorp",
-      content: "WeDraw transformed our design process. The real-time collaboration is game-changing.",
+      content: "PolyNote became our go-to space for brainstorming. Text + canvas in one place is a game-changer.",
       rating: 5
     },
     {
       name: "Michael Rodriguez",
       role: "Product Manager, StartupXYZ",
-      content: "Finally, a tool that keeps up with our fast-paced brainstorming sessions.",
+      content: "No more switching tools — PolyNote lets us write specs and sketch diagrams in the same doc.",
       rating: 5
     },
     {
       name: "Emily Johnson",
-      role: "UX Designer, DesignStudio",
-      content: "The performance and feature set blow other tools out of the water.",
+      role: "Educator, DesignStudio",
+      content: "My students love it. We can co-edit lecture notes and draw concepts in real time.",
       rating: 5
     }
   ];
 
   const useCases = [
     {
-      title: "Design & Prototyping",
-      description: "Create wireframes, mockups, and interactive prototypes with professional design tools.",
-      icon: <Monitor className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-purple-400" />
+      title: "Team Documentation",
+      description: "Collaboratively draft specs, meeting notes, or research docs.",
+      icon: <Type className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-purple-400" />
     },
     {
-      title: "Team Brainstorming",
-      description: "Facilitate creative sessions with sticky notes, mind maps, and collaborative whiteboards.",
+      title: "Brainstorming Sessions",
+      description: "Mix text notes with sketches, sticky notes, and diagrams.",
       icon: <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-purple-400" />
     },
     {
-      title: "Technical Diagrams",
-      description: "Build system architectures, flowcharts, and technical documentation with precision.",
+      title: "Design & Architecture",
+      description: "Draw wireframes, flowcharts, or system designs alongside explanations.",
       icon: <Layers className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-purple-400" />
     },
     {
-      title: "Education & Training",
-      description: "Create engaging educational content and interactive learning materials.",
+      title: "Education & Learning",
+      description: "Interactive lecture notes, collaborative study guides, and visual explanations.",
       icon: <Globe className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-purple-400" />
     }
   ];
@@ -123,14 +125,14 @@ export default function WeDraw() {
                 <Palette className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
               </div>
               <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
-                WeDraw
+                PolyNote
               </span>
             </div>
             
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8">
               <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
-              <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
+              <a href="#use-cases" className="text-gray-300 hover:text-white transition-colors">Use Cases</a>
               <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
             </div>
             
@@ -156,27 +158,6 @@ export default function WeDraw() {
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
-          
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="lg:hidden mt-4 py-4 border-t border-gray-800">
-              <div className="flex flex-col space-y-4">
-                <a href="#features" className="text-gray-300 hover:text-white transition-colors py-2">Features</a>
-                <a href="#pricing" className="text-gray-300 hover:text-white transition-colors py-2">Pricing</a>
-                <a href="#about" className="text-gray-300 hover:text-white transition-colors py-2">About</a>
-                <div className="flex flex-col sm:hidden space-y-2 pt-4 border-t border-gray-800">
-                  <Link href="/home">
-                    <button className="text-gray-300 hover:text-white transition-colors py-2 w-full text-left">Sign In</button>
-                  </Link>
-                  <Link href="/sign-up">
-                    <button className="flex items-center justify-center gap-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-all">
-                      <CircleUserRound size={18} /> Start Free
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </nav>
 
@@ -185,28 +166,22 @@ export default function WeDraw() {
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-transparent"></div>
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-purple-600/10 border border-purple-600/20 rounded-full px-3 py-1 sm:px-4 sm:py-2 mb-6 sm:mb-8">
-              <Unlock size={14} className="sm:w-4 sm:h-4 text-purple-400" />
-              <span className="text-xs sm:text-sm text-purple-300">Trusted by 50,000+ creative teams</span>
-            </div>
-            
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-4 sm:mb-6">
-              The Visual Workspace
-              <br />
+              The Future of{" "}
               <span className="bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 bg-clip-text text-transparent">
-                Teams Love
+                Collaborative Notes
               </span>
             </h1>
             
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0">
-              Create, collaborate, and innovate with WeDraw's powerful visual workspace. 
-              Built for modern teams who need speed, security, and seamless collaboration.
+              PolyNote combines a powerful text editor with an infinite canvas.  
+              Write structured notes, sketch ideas, and collaborate in real time — all in one place.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-12 px-4 sm:px-0">
               <Link href={"/sign-up"}>
                 <button className="w-full sm:w-auto bg-purple-600 text-white hover:bg-purple-700 rounded-xl px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold group flex items-center justify-center gap-2 transition-all hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
-                  Start Creating Free
+                  Start Free
                   <MoveRight size={18} className="sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
@@ -215,90 +190,19 @@ export default function WeDraw() {
                 Watch Demo
               </button>
             </div>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-400 px-4 sm:px-0">
-              <div className="flex items-center gap-2">
-                <Check size={14} className="sm:w-4 sm:h-4 text-green-400" />
-                No credit card required
-              </div>
-              <div className="flex items-center gap-2">
-                <Check size={14} className="sm:w-4 sm:h-4 text-green-400" />
-                Free forever plan
-              </div>
-              <div className="flex items-center gap-2">
-                <Check size={14} className="sm:w-4 sm:h-4 text-green-400" />
-                Setup in 30 seconds
-              </div>
-            </div>
           </div>
         </div>
       </section>
-
-      {/* Why Choose WeDraw */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-gray-800/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-              Why Choose <span className="text-purple-400">WeDraw</span>?
-            </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto px-4 sm:px-0">
-              While tools like Excalidraw are great for basic sketching, WeDraw offers enterprise-grade features 
-              for teams that need more power, security, and collaboration capabilities.
-            </p>
-          </div>
-          
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            <div className="bg-gray-800 rounded-2xl p-6 sm:p-8 border border-gray-700 hover:border-purple-500 transition-all">
-              <div className="text-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-purple-600/10 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
-                  <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">10x Faster</h3>
-                <p className="text-gray-300 text-sm sm:text-base">
-                  Optimized performance with WebGL acceleration and smart caching. 
-                  No lag, even with complex diagrams.
-                </p>
-              </div>
-            </div>
-            
-            <div className="bg-gray-800 rounded-2xl p-6 sm:p-8 border border-gray-700 hover:border-purple-500 transition-all">
-              <div className="text-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-purple-600/10 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
-                  <Users className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Unlimited Teams</h3>
-                <p className="text-gray-300 text-sm sm:text-base">
-                  Real-time collaboration with unlimited team members, 
-                  advanced permissions, and enterprise integrations.
-                </p>
-              </div>
-            </div>
-            
-            <div className="bg-gray-800 rounded-2xl p-6 sm:p-8 border border-gray-700 hover:border-purple-500 transition-all sm:col-span-2 lg:col-span-1">
-              <div className="text-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-purple-600/10 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
-                  <Shield className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Enterprise Ready</h3>
-                <p className="text-gray-300 text-sm sm:text-base">
-                  SOC 2 compliant, end-to-end encryption, SSO integration, 
-                  and audit trails for complete security.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
+      
+      {/* Features */}
       <section id="features" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-              Powerful Features for Modern Teams
+              All-in-One Workspace
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto px-4 sm:px-0">
-              Everything you need to create, collaborate, and communicate visually.
+            <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto">
+              PolyNote unifies rich-text editing and canvas drawing so your team doesn’t need multiple tools.
             </p>
           </div>
           
@@ -334,23 +238,23 @@ export default function WeDraw() {
                   <div className="w-16 h-16 sm:w-20 sm:h-20 bg-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                     <Play className="w-8 h-8 sm:w-10 sm:h-10 text-purple-400" />
                   </div>
-                  <p className="text-gray-300 text-sm sm:text-base">Interactive Feature Demo</p>
+                  <p className="text-gray-300 text-sm sm:text-base">See PolyNote in Action</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
+      
       {/* Use Cases */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-gray-800/30">
+      <section id="use-cases" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-gray-800/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-              Built for Every Use Case
+              Built for Every Workflow
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto px-4 sm:px-0">
-              From quick sketches to complex system designs, WeDraw adapts to your workflow.
+            <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto">
+              Whether you’re brainstorming, documenting, or teaching — PolyNote adapts.
             </p>
           </div>
           
@@ -368,6 +272,26 @@ export default function WeDraw() {
         </div>
       </section>
 
+      {/* About Section */}
+      <section id="about" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-gray-800/50">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
+            About PolyNote
+          </h2>
+          <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed">
+            PolyNote was built for creators, teams, and educators who were tired of switching 
+            between a text editor for notes and a canvas for visuals.  
+            We believe that ideas are stronger when words and sketches live side by side.
+          </p>
+          <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
+            By combining collaborative editing with an infinite canvas, PolyNote gives you 
+            the freedom to capture your thoughts however they flow.  
+            Whether you're drafting product specs, teaching a concept, or mapping out a design, 
+            PolyNote adapts to the way you think and work.
+          </p>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
@@ -376,7 +300,7 @@ export default function WeDraw() {
               Loved by Teams Worldwide
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto px-4 sm:px-0">
-              See what our users are saying about WeDraw.
+              See what our users are saying about PolyNote.
             </p>
           </div>
           
@@ -399,48 +323,6 @@ export default function WeDraw() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-gradient-to-r from-purple-600/10 to-purple-800/10">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-            Ready to Transform Your Workflow?
-          </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto px-4 sm:px-0">
-            Join thousands of teams who've made the switch to WeDraw. 
-            Start creating today with our free plan.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
-            <Link href={'/sign-up'}>
-              <button className="w-full sm:w-auto bg-purple-600 text-white hover:bg-purple-700 rounded-xl px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold group flex items-center justify-center gap-2 transition-all hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
-                Start Free Trial
-                <ArrowRight size={18} className="sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </Link>
-            <button className="w-full sm:w-auto border border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-xl px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold transition-all hover:scale-105">
-              Schedule Demo
-            </button>
-          </div>
-          
-          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-400">
-            <div className="flex items-center gap-2">
-              <Check size={14} className="sm:w-4 sm:h-4 text-green-400" />
-              14-day free trial
-            </div>
-            <div className="flex items-center gap-2">
-              <Check size={14} className="sm:w-4 sm:h-4 text-green-400" />
-              No setup fees
-            </div>
-            <div className="flex items-center gap-2">
-              <Check size={14} className="sm:w-4 sm:h-4 text-green-400" />
-              Cancel anytime
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-
       {/* Footer */}
       <footer className="bg-gray-800 py-12 px-6 border-t border-gray-700">
         <div className="max-w-7xl mx-auto">
@@ -451,21 +333,20 @@ export default function WeDraw() {
                   <Palette className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
-                  WeDraw
+                  PolyNote
                 </span>
               </div>
               <p className="text-gray-400 mb-4">
-                The visual workspace for modern teams.
+                Where words and sketches meet.
               </p>
             </div>
             
             <div>
               <h4 className="font-semibold mb-4">Product</h4>
               <div className="space-y-2 text-gray-400">
-                <a href="#" className="block hover:text-white transition-colors">Features</a>
-                <a href="#" className="block hover:text-white transition-colors">Pricing</a>
-                <a href="#" className="block hover:text-white transition-colors">Enterprise</a>
-                <a href="#" className="block hover:text-white transition-colors">API</a>
+                <a href="#features" className="block hover:text-white transition-colors">Features</a>
+                <a href="#use-cases" className="block hover:text-white transition-colors">Use Cases</a>
+                <a href="#about" className="block hover:text-white transition-colors">About</a>
               </div>
             </div>
             
@@ -474,7 +355,6 @@ export default function WeDraw() {
               <div className="space-y-2 text-gray-400">
                 <a href="#" className="block hover:text-white transition-colors">Documentation</a>
                 <a href="#" className="block hover:text-white transition-colors">Help Center</a>
-                <a href="#" className="block hover:text-white transition-colors">Blog</a>
                 <a href="#" className="block hover:text-white transition-colors">Community</a>
               </div>
             </div>
@@ -485,13 +365,12 @@ export default function WeDraw() {
                 <a href="#" className="block hover:text-white transition-colors">About</a>
                 <a href="#" className="block hover:text-white transition-colors">Careers</a>
                 <a href="#" className="block hover:text-white transition-colors">Contact</a>
-                <a href="#" className="block hover:text-white transition-colors">Security</a>
               </div>
             </div>
           </div>
           
           <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">© 2025 WeDraw. All rights reserved.</p>
+            <p className="text-gray-400 text-sm">© 2025 PolyNote. All rights reserved.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
               <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
               <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>

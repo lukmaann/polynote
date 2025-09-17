@@ -32,7 +32,7 @@ const SearchBar = () => {
 
         <div className="w-full  relative">
             <Search className="absolute top-1/2  transform -translate-y-1/2 left-3 text-muted-foreground h-4 w-4 " size={20} />
-            <Input className="w-full max-w-[500px] pl-9 " placeholder="Search Canvas" onChange={handleChange} value={v}
+            <Input className="w-full max-w-[500px] pl-9 " placeholder="Search Documents" onChange={handleChange} value={v}
 
             />
 

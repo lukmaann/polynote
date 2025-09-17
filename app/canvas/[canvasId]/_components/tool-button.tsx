@@ -22,7 +22,7 @@ const ToolButton = ({ label, icon :Icon, onClick, isActive, isDisabled }: ToolBu
     return (
        <Hint label={label} side="bottom" sideOffset={5}>
         <Button disabled={isDisabled} size="icon" className="p-1" onClick={onClick} variant={isActive?"canvasActive":"canvas"}>
-            <Icon size={15}/>
+            <Icon size={18}/>
 
         </Button>
 

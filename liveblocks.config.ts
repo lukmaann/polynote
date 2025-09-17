@@ -57,9 +57,18 @@ const client = createClient({
 // Presence represents the properties that exist on every user in the Room
 // and that will automatically be kept in sync. Accessible through the
 // `user.presence` property. Must be JSON-serializable.
+// type Presence = {
+//   pencilDraft: any;
+//   cursor: { x: number; y: number } | null;
+//   selection:string[]
+//   // ...
+// };
+
 type Presence = {
   cursor: { x: number; y: number } | null;
-  selection:string[]
+  selection: string[];
+  pencilDraft: [x: number, y: number, pressure: number][] | null;
+  penColor: Color | null;
   // ...
 };
 

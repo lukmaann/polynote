@@ -19,35 +19,36 @@ import { toast } from "sonner";
 
 export const RenameModal = () => {
   const { onClose, isOpen, initialValues } = useRenameModal();
-  const [title, setTitle] = useState(initialValues.title);
+  const [title, setTitle] = useState(initialValues?.title ?? "");
 
   const { mutate, pending } = useAPiMutation(api.canvas.update);
 
-  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-
-    mutate({
-      id: initialValues.id,
-      title,
-    })
-      .then(() => {
-        toast.success("Canvas name updated");
-        onClose();
-      })
-      .catch(() => {
-        toast.error("Failed to rename canvas");
-      });
+    try {
+      await mutate({ id: initialValues.id, title });
+      toast.success("Canvas name updated");
+      onClose();
+    } catch {
+      toast.error("Failed to rename canvas");
+    }
   };
 
+  // ✅ Fix: reset title only when modal opens
   useEffect(() => {
-    setTitle(initialValues.title);
-  }, [initialValues.title]);
+    if (isOpen) {
+      setTitle(initialValues?.title ?? "");
+    }
+  }, [isOpen, initialValues?.title]);
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent
-        className="bg-white text-black border border-gray-200 shadow-lg rounded-lg sm:max-w-md"
-      >
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose(); // ✅ fully unmount on close
+      }}
+    >
+      <DialogContent className="bg-white text-black border border-gray-200 shadow-lg rounded-lg sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Edit canvas title</DialogTitle>
           <DialogDescription className="text-gray-600">

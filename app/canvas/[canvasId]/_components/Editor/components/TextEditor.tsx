@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { ClientSideSuspense, useThreads } from "@liveblocks/react/suspense";
 import {
   FloatingComposer,
@@ -23,17 +23,24 @@ import { DocumentSpinner } from "../primitives/Spinner";
 import { CustomTaskItem } from "./CustomTaskItem";
 import { StaticToolbar, SelectionToolbar } from "./Toolbars";
 import Participants from "../../Participants";
+import Rename from "../../Rename";
+import { Id } from "@/convex/_generated/dataModel";
+import { useModeStore } from "@/store/textorcanvas";
 
-export function TextEditor() {
+
+export function TextEditor({ canvasId }: { canvasId: Id<"canvas"> }) {
   return (
     <ClientSideSuspense fallback={<DocumentSpinner />}>
-      <Editor />
+      <Editor canvasId={canvasId} />
     </ClientSideSuspense>
   );
 }
 
-export function Editor() {
+export function Editor({ canvasId }: { canvasId: Id<"canvas"> }) {
   const liveblocks = useLiveblocksExtension();
+  const { screenshot, setScreenshot } = useModeStore();
+  
+
 
   const extensions = useMemo(
     () => [
@@ -87,21 +94,37 @@ export function Editor() {
     [liveblocks]
   );
 
+   
+
   const editor = useEditor({
     editorProps: {
       attributes: { class: "tiptap-root" },
     },
     extensions,
   });
+   useEffect(() => {
+    if (editor && screenshot) {
+      editor.chain().focus().setImage({ src: screenshot }).run();
+      setScreenshot(null); // clear after inserting
+    }
+  }, [editor, screenshot, setScreenshot]);
 
   const { threads } = useThreads();
 
   if (!editor) return <DocumentSpinner />;
 
   return (
-    <div className="w-full h-screen bg-[#FDF8F6] flex flex-col items-center justify-start">
+    <div className="w-full bg-[#FDF8F6]  flex flex-col items-center justify-start">
+      {/* <UserButton/> */}
       {/* Floating toolbar at top */}
       <div className="mt-4">
+
+        <Rename id={canvasId} />
+
+
+
+
+
         <StaticToolbar editor={editor} />
       </div>
 
@@ -114,14 +137,16 @@ export function Editor() {
             role="textbox"
             aria-multiline="true"
             aria-label="Document editor"
-            className="prose prose-lg max-w-none  bg-white p-6 h-[100vh] border border-gray-200 shadow-md text-black focus:outline-none focus:ring-0 focus:border-transparent"
+            className="prose prose-lg max-w-none 
+     bg-white p-6 min-h-screen border border-gray-200 shadow-md text-black focus:outline-none focus:ring-0 focus:border-transparent"
           />
+
 
           <FloatingComposer editor={editor} style={{ width: 350 }} />
           <FloatingThreads threads={threads} editor={editor} />
-          <Participants />
         </div>
       </div>
+      <Participants />
     </div>
   );
 }

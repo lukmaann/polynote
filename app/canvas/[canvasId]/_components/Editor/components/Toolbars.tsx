@@ -6,6 +6,7 @@ import { ToolbarMedia } from "./ToolbarMedia";
 import { ToolbarInlineAdvanced } from "./TextInlineAdvanced";
 import { ToolbarAlignment } from "./ToolbarAlignment";
 import { ToolbarBlockSelector } from "./ToolbarBlockSelector";
+// import Rename from "../../Rename";
 
 type Props = {
   editor: Editor | null;
@@ -20,6 +21,7 @@ export function StaticToolbar({ editor }: Props) {
     >
       {/* Undo / Redo history */}
       <Toolbar.SectionHistory />
+      {/* <Rename/> */}
 
       <Toolbar.Separator className="w-px h-6 bg-gray-200 mx-2" />
 

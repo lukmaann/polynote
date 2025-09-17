@@ -1,6 +1,6 @@
 import { SignIn } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
-import { Palette, ArrowLeft, Shield, Users, Zap } from "lucide-react";
+import { Palette, ArrowLeft, Shield, Users, Zap, PenLine, Type } from "lucide-react";
 import Link from "next/link";
 
 export default function Page() {
@@ -25,19 +25,23 @@ export default function Page() {
               <Palette className="w-7 h-7 text-white" />
             </div>
             <span className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
-              WeDraw
+              PolyNote
             </span>
           </div>
 
           {/* Main Content */}
           <div className="max-w-md">
             <h1 className="text-4xl xl:text-5xl font-bold text-white mb-6 leading-tight">
-              Sign in to your
-              <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent"> Account</span>
+              Sign in to{" "}
+              <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+                PolyNote
+              </span>
             </h1>
             
             <p className="text-gray-300 text-lg mb-12 leading-relaxed">
-              Continue creating, collaborating, and bringing your ideas to life with the most powerful visual workspace for teams.
+              Continue capturing ideas with the only workspace that blends{" "}
+              <span className="text-purple-400">text editing</span> and{" "}
+              <span className="text-purple-400">canvas sketching</span> — in real time.
             </p>
 
             {/* Features */}
@@ -48,27 +52,27 @@ export default function Page() {
                 </div>
                 <div>
                   <h3 className="text-white font-semibold">Real-time Collaboration</h3>
-                  <p className="text-gray-400 text-sm">Work together seamlessly with your team</p>
+                  <p className="text-gray-400 text-sm">Multi-cursor editing & shared canvases</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 bg-purple-600/10 rounded-lg flex items-center justify-center">
-                  <Zap className="w-5 h-5 text-purple-400" />
+                  <Type className="w-5 h-5 text-purple-400" />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold">Lightning Fast</h3>
-                  <p className="text-gray-400 text-sm">Optimized performance for smooth workflows</p>
+                  <h3 className="text-white font-semibold">Rich Text Editing</h3>
+                  <p className="text-gray-400 text-sm">Headings, lists, links, formatting & more</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 bg-purple-600/10 rounded-lg flex items-center justify-center">
-                  <Shield className="w-5 h-5 text-purple-400" />
+                  <PenLine className="w-5 h-5 text-purple-400" />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold">Enterprise Security</h3>
-                  <p className="text-gray-400 text-sm">Bank-grade encryption and compliance</p>
+                  <h3 className="text-white font-semibold">Canvas & Whiteboard</h3>
+                  <p className="text-gray-400 text-sm">Sketch, annotate, and diagram freely</p>
                 </div>
               </div>
             </div>
@@ -83,7 +87,7 @@ export default function Page() {
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                <span>SOC 2 Compliant</span>
+                <span>Secure & Encrypted</span>
               </div>
             </div>
           </div>
@@ -105,45 +109,10 @@ export default function Page() {
               <Palette className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </div>
             <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
-              WeDraw
+              PolyNote
             </span>
           </div>
         </div>
-
-        {/* Mobile Features Section */}
-        {/* <div className="lg:hidden px-4 sm:px-6 py-6 bg-gray-800/50 border-b border-gray-700">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="flex items-center gap-3 sm:flex-col sm:text-center">
-              <div className="w-8 h-8 bg-purple-600/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Users className="w-4 h-4 text-purple-400" />
-              </div>
-              <div className="sm:mt-2">
-                <h3 className="text-white font-semibold text-sm">Real-time Collaboration</h3>
-                <p className="text-gray-400 text-xs mt-1 sm:hidden">Work together seamlessly</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 sm:flex-col sm:text-center">
-              <div className="w-8 h-8 bg-purple-600/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Zap className="w-4 h-4 text-purple-400" />
-              </div>
-              <div className="sm:mt-2">
-                <h3 className="text-white font-semibold text-sm">Lightning Fast</h3>
-                <p className="text-gray-400 text-xs mt-1 sm:hidden">Optimized performance</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 sm:flex-col sm:text-center">
-              <div className="w-8 h-8 bg-purple-600/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Shield className="w-4 h-4 text-purple-400" />
-              </div>
-              <div className="sm:mt-2">
-                <h3 className="text-white font-semibold text-sm">Enterprise Security</h3>
-                <p className="text-gray-400 text-xs mt-1 sm:hidden">Bank-grade encryption</p>
-              </div>
-            </div>
-          </div>
-        </div> */}
 
         {/* Sign In Form Container */}
         <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8 xl:p-12">
@@ -151,7 +120,7 @@ export default function Page() {
             {/* Mobile Welcome Text */}
             <div className="text-center mb-6 sm:mb-8 lg:hidden">
               <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Welcome back</h1>
-              <p className="text-gray-400 text-sm sm:text-base">Sign in to your WeDraw account</p>
+              <p className="text-gray-400 text-sm sm:text-base">Sign in to your PolyNote account</p>
             </div>
 
             {/* Clerk Sign In Component */}
@@ -183,21 +152,6 @@ export default function Page() {
                     formFieldInput: "bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-purple-500 focus:ring-purple-500 text-sm sm:text-base py-2 sm:py-3",
                     formButtonPrimary: "bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 sm:py-3 transition-all hover:scale-[1.02] shadow-lg text-sm sm:text-base",
                     footerActionLink: "text-purple-400 hover:text-purple-300 font-medium text-sm sm:text-base",
-                    identityPreviewText: "text-gray-300 text-sm sm:text-base",
-                    identityPreviewEditButton: "text-purple-400 hover:text-purple-300 text-sm sm:text-base",
-                    formFieldSuccessText: "text-green-400 text-sm",
-                    formFieldErrorText: "text-red-400 text-sm",
-                    formFieldHintText: "text-gray-400 text-sm",
-                    dividerLine: "bg-gray-600",
-                    dividerText: "text-gray-400 text-sm sm:text-base",
-                    formHeaderTitle: "text-white text-lg sm:text-xl",
-                    formHeaderSubtitle: "text-gray-400 text-sm sm:text-base",
-                    modalCloseButton: "text-gray-400 hover:text-white",
-                    cardBox: "shadow-2xl",
-                    rootBox: "w-full",
-                    main: "w-full",
-                    logoBox: "mb-4 sm:mb-6",
-                    logoImage: "w-8 h-8 sm:w-10 sm:h-10",
                   }
                 }}
               />

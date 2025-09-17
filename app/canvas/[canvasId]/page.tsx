@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Canvas from "./_components/Canvas";
-import Room from "@/components/room";
+import { Room } from "@/components/room";
 import Loading from "./_components/loading";
 import { Editor } from "./_components/Editor/components/TextEditor";
 
 import { useModeStore } from "@/store/textorcanvas";
+import { Id } from "@/convex/_generated/dataModel";
 
 interface CanvasPageProps {
   params: {
@@ -16,6 +17,7 @@ interface CanvasPageProps {
 
 const CanvasPage = ({ params }: CanvasPageProps) => {
   const { mode, setMode } = useModeStore();
+  const canvasId = params.canvasId as Id<"canvas">;
 
   return (
     <Room roomId={params.canvasId} fallback={<Loading />}>
@@ -25,8 +27,8 @@ const CanvasPage = ({ params }: CanvasPageProps) => {
       {mode === "canvas" && <Canvas canvasId={params.canvasId} />}
 
       {mode === "editor" && (
-        <div className="text-editor p-4">
-          <Editor />
+        <div className="text-editor p-4 bg-[#FDF8F6]">
+          <Editor  canvasId={canvasId} />
         </div>
       )}
       

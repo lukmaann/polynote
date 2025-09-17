@@ -22,7 +22,7 @@ const Navbar = () => {
             
                
             
-                <PrimimumButton />
+                {/* <PrimimumButton /> */}
                 <div className="rounded-full p-1 hover:border-gray-400 border-2   ">
                     <UserButton />
                 </div>

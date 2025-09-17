@@ -14,7 +14,7 @@ type Props = {
 };
 
 export function ToolbarMedia({ editor }: Props) {
-    const {setMode}=useModeStore();
+  const { setMode } = useModeStore();
 
 
 
@@ -41,7 +41,7 @@ export function ToolbarMedia({ editor }: Props) {
         name="Code block"
         icon={<CodeBlockIcon />}
         className="text-black"
-       
+
         active={editor?.isActive("codeBlock") ?? false}
         onClick={() => editor?.chain().focus().toggleCodeBlock().run()}
         disabled={!editor?.can().chain().focus().toggleCodeBlock().run()}
@@ -50,6 +50,8 @@ export function ToolbarMedia({ editor }: Props) {
       <Popover content={<MediaPopover variant="image" onSubmit={addImage} />}>
         <Toolbar.Toggle
           name="Image"
+          className="text-black"
+
           icon={<ImageIcon />}
           active={editor?.isActive("image") ?? false}
           disabled={!editor?.can().chain().setImage({ src: "" }).run()}
@@ -60,22 +62,28 @@ export function ToolbarMedia({ editor }: Props) {
         content={<MediaPopover variant="youtube" onSubmit={addYouTube} />}
       >
         <Toolbar.Toggle
+          className="text-black"
+
           name="YouTube"
           icon={<YouTubeIcon />}
+          
+
           active={editor?.isActive("youtube") ?? false}
           disabled={!editor?.can().chain().setImage({ src: "" }).run()}
         />
 
-      
+
 
 
 
 
       </Popover>
 
-        <Toolbar.Button
+      <Toolbar.Button
         name="Open Canvas"
-        icon={<MousePointerIcon/>}
+        className="text-black"
+
+        icon={<MousePointerIcon />}
         onClick={() => setMode("canvas")}
       />
     </>

@@ -77,7 +77,7 @@ const Actions = ({
         </DropdownMenuItem>
 
         {/* Rename (only author/admin can rename) */}
-        {canDelete && (
+        {/* {canDelete && (
           <DropdownMenuItem
             className="p-2 cursor-pointer hover:bg-gray-100"
             onClick={() => {
@@ -86,7 +86,7 @@ const Actions = ({
           >
             <Pencil className="h-4 w-4 mr-2" /> Rename
           </DropdownMenuItem>
-        )}
+        )} */}
 
         {/* Delete (only author/admin can delete) */}
         {canDelete && (

@@ -20,6 +20,8 @@ export function ToolbarInlineAdvanced({ editor }: Props) {
     <>
       <Toolbar.Toggle
         name="Highlight"
+        className="text-black"
+
         icon={<HighlightIcon style={{ width: "17.5px" }} />}
         active={editor?.isActive("highlight") ?? false}
         onClick={() => editor?.chain().focus().toggleHighlight().run()}
@@ -37,6 +39,8 @@ export function ToolbarInlineAdvanced({ editor }: Props) {
       >
         <Toolbar.Toggle
           name="Link"
+          className="text-black"
+
           icon={<LinkIcon style={{ width: "17px" }} />}
           active={editor?.isActive("link") ?? false}
           disabled={!editor?.can().chain().focus().setLink({ href: "" }).run()}
