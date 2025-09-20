@@ -8,12 +8,12 @@ import OrganizationBox from "../home/_components/orgbox";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Navbar from "./_components/Navbar";
-import { 
-  Users, 
-  Zap, 
-  Building, 
-  ArrowLeft, 
-  ArrowRight, 
+import {
+  Users,
+  Zap,
+  Building,
+  ArrowLeft,
+  ArrowRight,
   Palette,
   Star,
   Clock,
@@ -145,7 +145,7 @@ const Page = () => {
     <div className="min-h-screen w-full bg-gray-900 relative overflow-y-auto">
       {/* Enhanced Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-purple-900/20 via-blue-900/10 to-gray-900"></div>
-      
+
       {/* Dynamic Grid Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
@@ -225,14 +225,14 @@ const Page = () => {
                   <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400" />
                   <span className="text-xs sm:text-sm text-purple-300">AI-Enhanced Workspace</span>
                 </div>
-                
+
                 <h1 className={`${poppins.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 leading-tight px-4`}>
                   Welcome back,{" "}
                   <span className="bg-gradient-to-r from-purple-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                     {user?.fullName?.split(' ')[0] || 'User'}
                   </span>
                 </h1>
-                
+
                 <p className={`${roboto.className} text-gray-300 text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-4`}>
                   Ready to create something amazing? Start a new AI-enhanced project or continue collaborating with your team.
                 </p>
@@ -343,7 +343,7 @@ const Page = () => {
                       AI-Powered Productivity Insights
                     </h3>
                     <p className="text-gray-300 text-sm sm:text-base">
-                      You've been 89% more productive this month with AI assistance! Your team collaboration has increased by 45%.
+                      You&apos;ve been 89% more productive this month with AI assistance! Your team collaboration has increased by 45%.
                     </p>
                   </div>
                   <Button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-all hover:scale-105 flex-shrink-0">

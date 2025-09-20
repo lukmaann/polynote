@@ -68,6 +68,12 @@ export function resizeBounds(bounds: XYWH, corner: Side, point: Point): XYWH {
   return result;
 }
 
+
+
+
+
+
+
 export function findIntersectingLayersWithRectangle(
   layerIds: readonly string[],
   layers: ReadonlyMap<string, Layer>,
@@ -81,16 +87,34 @@ export function findIntersectingLayersWithRectangle(
     height: Math.abs(a.y - b.y),
   };
 
-  const ids = [];
+  const ids: string[] = [];
+
+  const getBounds = (layer: Layer) => {
+    switch (layer.type) {
+      case LayerType.Line:
+      case LayerType.Arrow: {
+        const left = Math.min(layer.x, layer.x2);
+        const top = Math.min(layer.y, layer.y2);
+        const width = Math.abs(layer.x2 - layer.x);
+        const height = Math.abs(layer.y2 - layer.y);
+        return { x: left, y: top, width, height };
+      }
+      default: {
+        return {
+          x: layer.x,
+          y: layer.y,
+          width: (layer as any).width ?? 0,
+          height: (layer as any).height ?? 0,
+        };
+      }
+    }
+  };
 
   for (const layerId of layerIds) {
     const layer = layers.get(layerId);
+    if (!layer) continue;
 
-    if (layer == null) {
-      continue;
-    }
-
-    const { x, y, height, width } = layer;
+    const { x, y, width, height } = getBounds(layer);
 
     if (
       rect.x + rect.width > x &&
@@ -104,6 +128,7 @@ export function findIntersectingLayersWithRectangle(
 
   return ids;
 }
+
 
 export function getContrastingTextColor(color: Color) {
   const luminance = 0.299 * color.r + 0.587 * color.g + 0.114 * color.b;

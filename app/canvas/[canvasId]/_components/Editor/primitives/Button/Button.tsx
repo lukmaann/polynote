@@ -32,6 +32,9 @@ export const Button = forwardRef<
   </button>
 ));
 
+// 👇 This line fixes the ESLint error
+Button.displayName = "Button";
+
 export function LinkButton({
   variant = "primary",
   icon,

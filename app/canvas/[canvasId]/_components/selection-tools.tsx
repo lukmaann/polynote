@@ -7,6 +7,7 @@ import { memo } from "react";
 import { ColorPicker } from "./color-picker";
 import { useDeleteLayers } from "@/hooks/use-delete-layers";
 import { Button } from "@/components/ui/button";
+import { Layer } from "@/types/canvas";
 
 import { BringToFront, SendToBack, Trash2 } from "lucide-react";
 import Hint from "@/app/home/_components/hint";
@@ -69,7 +70,7 @@ export const SelectionTools = memo(
         setLastUsedColor(fill);
 
         selection.forEach((id) => {
-          liveLayers.get(id)?.set("fill", fill);
+          return liveLayers.get(id)?.set("fill" as keyof Layer, fill as any);
         });
       },
       [selection, setLastUsedColor]
@@ -96,19 +97,19 @@ export const SelectionTools = memo(
         <ColorPicker onChange={setFill} />
         <div className="flex flex-col gap-y-0.5">
           <Hint label="Bring to front">
-            <Button onClick={moveToFront} variant="board" size="icon">
+            <Button onClick={moveToFront}  size="icon">
               <BringToFront />
             </Button>
           </Hint>
           <Hint label="Send to back">
-            <Button onClick={moveToBack} variant="board" size="icon">
+            <Button onClick={moveToBack}  size="icon">
               <SendToBack />
             </Button>
           </Hint>
         </div>
         <div className="flex items-center pl-2 ml-2 border-l border-neutral-200">
           <Hint label="Delete">
-            <Button variant="board" size="icon" onClick={deleteLayers}>
+            <Button  size="icon" onClick={deleteLayers}>
               <Trash2 />
             </Button>
           </Hint>

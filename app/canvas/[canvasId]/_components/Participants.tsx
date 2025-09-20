@@ -18,20 +18,25 @@ const Participants = () => {
   // Load the audio file on mount
   useEffect(() => {
     audioRef.current = new Audio("/sounds/newMember.mp3");
-  }, []);
+  }, [others.length]);
+
+  // Derive stable values for deps
+  const othersLength = others.length;
+  const lastOtherName =
+    othersLength > 0 ? others[othersLength - 1]?.info?.name : null;
 
   // Play sound & toast when a new participant joins
   useEffect(() => {
-    if (others.length > 0 && others.length > previousOthersLength.current) {
+    if (othersLength > previousOthersLength.current) {
       audioRef.current.play();
-      toast.success(
-        `${others[others.length - 1]?.info?.name} joined the canvas`
-      );
+      if (lastOtherName) {
+        toast.success(`${lastOtherName} joined the canvas`);
+      }
     }
-    previousOthersLength.current = others.length;
-  }, [others.length]);
+    previousOthersLength.current = othersLength;
+  }, [othersLength, lastOtherName]);
 
-  const hasMoreUsers = others.length > MAX_USERS;
+  const hasMoreUsers = othersLength > MAX_USERS;
 
   return (
     <div className="bg-white rounded-md p-4 h-11 items-center shadow-md fixed bottom-4 right-4 flex z-50">
@@ -57,8 +62,8 @@ const Participants = () => {
 
         {hasMoreUsers && (
           <UserAvatar
-            name={`${others.length - MAX_USERS} More`}
-            fallback={`+${others.length - MAX_USERS}`}
+            name={`${othersLength - MAX_USERS} More`}
+            fallback={`+${othersLength - MAX_USERS}`}
           />
         )}
       </div>

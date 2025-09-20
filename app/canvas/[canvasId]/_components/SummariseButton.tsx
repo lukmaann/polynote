@@ -22,7 +22,7 @@ export function SummariseButton({
     try {
       const summary = await summariseContentWithGemini(
         process.env.GOOGLE_GEMINI_API_KEY!,
-        content
+      
       );
       await saveSummary({ id: canvasId, summary });
       alert(summary);

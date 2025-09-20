@@ -3,6 +3,7 @@ import { NoteLayer } from "@/types/canvas";
 import { useMutation } from "@/liveblocks.config";
 import { Kalam } from "next/font/google";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+import { LiveObject } from "@liveblocks/client"; // 👈 import LiveObject for typing
 
 const font = Kalam({ subsets: ["latin"], weight: "400" });
 
@@ -33,7 +34,9 @@ export const Note = ({
   const updateValue = useMutation(({ storage }, newValue: string) => {
     const liveLayers = storage.get("layers");
 
-    liveLayers.get(id)?.set("value", newValue);
+    // ✅ Cast this layer explicitly as LiveObject<NoteLayer>
+    const noteLayer = liveLayers.get(id) as LiveObject<NoteLayer> | undefined;
+    noteLayer?.set("value", newValue);
   }, []);
 
   const handleContentChange = (e: ContentEditableEvent) => {

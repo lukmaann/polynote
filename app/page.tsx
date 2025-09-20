@@ -3,18 +3,18 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { 
-  MoveRight, 
-  Unlock, 
-  CircleUserRound, 
-  Zap, 
-  Users, 
-  Shield, 
-  Palette, 
-  Cloud, 
-  Smartphone, 
-  Play, 
-  Check, 
+import {
+  MoveRight,
+  Unlock,
+  CircleUserRound,
+  Zap,
+  Users,
+  Shield,
+  Palette,
+  Cloud,
+  Smartphone,
+  Play,
+  Check,
   Star,
   ArrowRight,
   Globe,
@@ -182,18 +182,18 @@ export default function PolyNote() {
               </ul>
             </div>
           </div>
-          
+
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-xs text-white">SC</div>
               <span className="text-gray-300 text-sm">Sarah is typing...</span>
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
             </div>
-            
+
             <div className="bg-gray-800 rounded-lg p-4 border-l-4 border-purple-500">
               <p className="text-gray-200">The user research shows strong demand for mobile-first approach. We should prioritize responsive design in our next sprint.</p>
             </div>
-            
+
             <div className="bg-yellow-600/10 border border-yellow-600/20 rounded-lg p-3">
               <div className="flex items-center gap-2 text-yellow-300 text-sm">
                 <Lightbulb className="w-4 h-4" />
@@ -256,7 +256,7 @@ export default function PolyNote() {
                 AI Powered
               </div>
             </div>
-            
+
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8">
               <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
@@ -264,7 +264,7 @@ export default function PolyNote() {
               <a href="#use-cases" className="text-gray-300 hover:text-white transition-colors">Use Cases</a>
               <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
             </div>
-            
+
             {/* Desktop Auth Buttons */}
             <div className="hidden sm:flex items-center gap-4">
               <Link href="/home">
@@ -272,7 +272,7 @@ export default function PolyNote() {
               </Link>
               <Link href="/sign-up">
                 <button className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all hover:scale-105 shadow-lg shadow-purple-500/25">
-                  <CircleUserRound size={16} className="sm:w-[18px] sm:h-[18px]" /> 
+                  <CircleUserRound size={16} className="sm:w-[18px] sm:h-[18px]" />
                   <span className="hidden sm:inline">Start Free</span>
                   <span className="sm:hidden">Free</span>
                 </button>
@@ -280,7 +280,7 @@ export default function PolyNote() {
             </div>
 
             {/* Mobile Menu Button */}
-            <button 
+            <button
               className="lg:hidden p-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
@@ -295,14 +295,14 @@ export default function PolyNote() {
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-blue-900/20 to-transparent"></div>
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl"></div>
         <div className="absolute top-1/3 right-1/4 w-48 h-48 bg-blue-600/10 rounded-full blur-3xl"></div>
-        
+
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center max-w-4xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600/20 to-blue-600/20 text-purple-300 px-4 py-2 rounded-full text-sm mb-6 border border-purple-500/30">
               <Sparkles className="w-4 h-4" />
               Now with AI-powered writing assistance
             </div>
-            
+
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-4 sm:mb-6">
               The Future of{" "}
               <span className="bg-gradient-to-r from-purple-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
@@ -310,12 +310,12 @@ export default function PolyNote() {
               </span>{" "}
               Collaboration
             </h1>
-            
+
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0">
-              PolyNote combines powerful AI-assisted text editing with an infinite canvas.  
+              PolyNote combines powerful AI-assisted text editing with an infinite canvas.
               Write smarter, collaborate better, and let AI handle the heavy lifting — all in one place.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-12 px-4 sm:px-0">
               <Link href={"/sign-up"}>
                 <button className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 rounded-xl px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold group flex items-center justify-center gap-2 transition-all hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
@@ -359,32 +359,30 @@ export default function PolyNote() {
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">See PolyNote in Action</h2>
             <p className="text-lg text-gray-300">Experience the power of AI-enhanced collaboration</p>
           </div>
-          
+
           <div className="flex justify-center mb-8">
             <div className="bg-gray-800 rounded-lg p-1 flex">
               <button
                 onClick={() => setActiveDemo('editor')}
-                className={`px-6 py-3 rounded-md transition-all ${
-                  activeDemo === 'editor'
-                    ? 'bg-purple-600 text-white'
-                    : 'text-gray-400 hover:text-white'
-                }`}
+                className={`px-6 py-3 rounded-md transition-all ${activeDemo === 'editor'
+                  ? 'bg-purple-600 text-white'
+                  : 'text-gray-400 hover:text-white'
+                  }`}
               >
                 AI Text Editor
               </button>
               <button
                 onClick={() => setActiveDemo('canvas')}
-                className={`px-6 py-3 rounded-md transition-all ${
-                  activeDemo === 'canvas'
-                    ? 'bg-purple-600 text-white'
-                    : 'text-gray-400 hover:text-white'
-                }`}
+                className={`px-6 py-3 rounded-md transition-all ${activeDemo === 'canvas'
+                  ? 'bg-purple-600 text-white'
+                  : 'text-gray-400 hover:text-white'
+                  }`}
               >
                 Collaborative Canvas
               </button>
             </div>
           </div>
-          
+
           <div className="transition-all duration-300">
             {activeDemo === 'editor' ? <DemoEditor /> : <DemoCanvas />}
           </div>
@@ -403,10 +401,10 @@ export default function PolyNote() {
               AI That Actually Helps You Work
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto">
-              Our AI doesn't just generate text — it understands context, organizes information, and helps you think better.
+              Our AI doesn&apos;t just generate text — it understands context, organizes information, and helps you think better.
             </p>
           </div>
-          
+
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {aiFeatures.map((feature, index) => (
               <div key={index} className="bg-gray-800/50 rounded-2xl p-6 sm:p-8 border border-gray-700 hover:border-purple-500 transition-all group hover:bg-gray-800/70">
@@ -423,7 +421,7 @@ export default function PolyNote() {
           </div>
         </div>
       </section>
-      
+
       {/* Core Features */}
       <section id="features" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
@@ -435,17 +433,16 @@ export default function PolyNote() {
               Every feature works together seamlessly, with AI intelligence built into every interaction.
             </p>
           </div>
-          
+
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
             <div className="space-y-4 sm:space-y-6">
               {features.map((feature, index) => (
-                <div 
+                <div
                   key={index}
-                  className={`p-4 sm:p-6 rounded-xl border transition-all cursor-pointer ${
-                    activeFeature === index 
-                      ? 'bg-gradient-to-r from-purple-600/10 to-blue-600/10 border-purple-500' 
-                      : 'bg-gray-800/50 border-gray-700 hover:border-gray-600'
-                  }`}
+                  className={`p-4 sm:p-6 rounded-xl border transition-all cursor-pointer ${activeFeature === index
+                    ? 'bg-gradient-to-r from-purple-600/10 to-blue-600/10 border-purple-500'
+                    : 'bg-gray-800/50 border-gray-700 hover:border-gray-600'
+                    }`}
                   onClick={() => setActiveFeature(index)}
                 >
                   <div className="flex items-start gap-3 sm:gap-4">
@@ -461,7 +458,7 @@ export default function PolyNote() {
                 </div>
               ))}
             </div>
-            
+
             <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-700 order-first lg:order-last">
               <div className="aspect-video bg-gradient-to-br from-purple-600/20 via-blue-600/20 to-purple-800/20 rounded-xl flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10 animate-pulse"></div>
@@ -477,7 +474,7 @@ export default function PolyNote() {
           </div>
         </div>
       </section>
-      
+
       {/* Use Cases */}
       <section id="use-cases" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-gray-800/30">
         <div className="max-w-7xl mx-auto">
@@ -486,10 +483,10 @@ export default function PolyNote() {
               Built for Every AI-Enhanced Workflow
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto">
-              From strategic planning to creative collaboration — PolyNote's AI adapts to how you work.
+              From strategic planning to creative collaboration — PolyNote&apos;s AI adapts to how you work.
             </p>
           </div>
-          
+
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {useCases.map((useCase, index) => (
               <div key={index} className="bg-gray-800 rounded-2xl p-6 sm:p-8 border border-gray-700 hover:border-purple-500 transition-all group">
@@ -514,15 +511,17 @@ export default function PolyNote() {
             About PolyNote
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed">
-            PolyNote was built for teams who were tired of juggling multiple tools and losing context between writing and ideation.  
+            PolyNote was built for teams who were tired of juggling multiple tools and losing context between writing and ideation.
             We added AI not to replace human creativity, but to amplify it — helping you organize thoughts, extract insights, and focus on what matters most.
           </p>
+
           <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
-            By combining collaborative editing, infinite canvas, and intelligent AI assistance, PolyNote gives you 
-            the freedom to capture your thoughts however they flow — while AI helps you make sense of it all.  
-            Whether you're drafting product specs, teaching a concept, or mapping out a design, 
+            By combining collaborative editing, infinite canvas, and intelligent AI assistance, PolyNote gives you
+            the freedom to capture your thoughts however they flow — while AI helps you make sense of it all.
+            Whether you&apos;re drafting product specs, teaching a concept, or mapping out a design,
             PolyNote adapts to the way you think and work.
           </p>
+
         </div>
       </section>
 
@@ -537,7 +536,7 @@ export default function PolyNote() {
               See how teams are using PolyNote's AI-powered collaboration to work smarter.
             </p>
           </div>
-          
+
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="bg-gray-800 rounded-2xl p-6 sm:p-8 border border-gray-700 hover:border-purple-500/50 transition-all group">
@@ -546,7 +545,10 @@ export default function PolyNote() {
                     <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-300 mb-4 sm:mb-6 italic text-sm sm:text-base">"{testimonial.content}"</p>
+                <p className="text-gray-300 mb-4 sm:mb-6 italic text-sm sm:text-base">
+                  &quot;{testimonial.content}&quot;
+                </p>
+
                 <div>
                   <p className="font-semibold text-sm sm:text-base">{testimonial.name}</p>
                   <p className="text-xs sm:text-sm text-gray-400">{testimonial.role}</p>
@@ -607,7 +609,7 @@ export default function PolyNote() {
                 Where intelligent writing meets collaborative creativity. Transform how your team captures, organizes, and shares ideas.
               </p>
             </div>
-            
+
             <div>
               <h4 className="font-semibold mb-4">Product</h4>
               <div className="space-y-2 text-gray-400">
@@ -617,7 +619,7 @@ export default function PolyNote() {
                 <a href="#about" className="block hover:text-white transition-colors">About</a>
               </div>
             </div>
-            
+
             <div>
               <h4 className="font-semibold mb-4">Resources</h4>
               <div className="space-y-2 text-gray-400">
@@ -627,7 +629,7 @@ export default function PolyNote() {
                 <a href="#" className="block hover:text-white transition-colors">Community</a>
               </div>
             </div>
-            
+
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
               <div className="space-y-2 text-gray-400">
@@ -638,7 +640,7 @@ export default function PolyNote() {
               </div>
             </div>
           </div>
-          
+
           <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">© 2025 PolyNote. All rights reserved.</p>
             <div className="flex gap-6 mt-4 md:mt-0">

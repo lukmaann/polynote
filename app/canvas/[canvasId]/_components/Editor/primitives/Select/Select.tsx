@@ -1,7 +1,7 @@
 import * as RadixSelect from "@radix-ui/react-select";
 import clsx from "clsx";
 import { CSSProperties, useCallback, useEffect, useState } from "react";
-import { CheckIcon, SelectIcon } from "@/icons";
+import { CheckIcon, SelectIcon } from "../../icons";
 import styles from "./Select.module.css";
 
 interface Item extends RadixSelect.SelectItemProps {

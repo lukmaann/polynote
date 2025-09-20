@@ -49,3 +49,6 @@ export const Tooltip = forwardRef<HTMLDivElement, Props>(
     );
   }
 );
+
+// 👇 Fixes the ESLint "missing display name" error
+Tooltip.displayName = "Tooltip";

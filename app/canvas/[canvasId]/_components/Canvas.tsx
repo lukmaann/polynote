@@ -91,6 +91,7 @@ const Canvas = ({ canvasId }: CanvasProps) => {
         height: 100,
         width: 100,
         fill: lastUsedColor,
+        ...(layerType === LayerType.Note ? { value: "" } : {})
       });
 
       liveLayersIDs.push(layerId);
@@ -178,8 +179,8 @@ const Canvas = ({ canvasId }: CanvasProps) => {
         cursor: point,
         pencilDraft:
           pencilDraft.length === 1 &&
-          pencilDraft[0][0] === point.x &&
-          pencilDraft[0][1] === point.y
+            pencilDraft[0][0] === point.x &&
+            pencilDraft[0][1] === point.y
             ? pencilDraft
             : [...pencilDraft, [point.x, point.y, e.pressure]],
       });
@@ -278,7 +279,7 @@ const Canvas = ({ canvasId }: CanvasProps) => {
         translateSelectedLayers(current);
       } else if (canvasState.mode === CanvasMode.Resizing) {
         resizeSelectedLayer(current);
-      } 
+      }
       else if (canvasState.mode === CanvasMode.Pencil) {
         continueDrawing(current, e);
       }
@@ -309,13 +310,13 @@ const Canvas = ({ canvasId }: CanvasProps) => {
 
       setCanvasState({ origin: point, mode: CanvasMode.Pressing });
     },
-    [camera, canvasState.mode, setCanvasState, 
+    [camera, canvasState.mode, setCanvasState,
       startDrawing
     ]
   );
 
   const onPointerUp = useMutation(
-    ({}, e) => {
+    ({ }, e) => {
       const point = pointerEventToCanvasPoint(e, camera);
 
       if (
@@ -324,23 +325,31 @@ const Canvas = ({ canvasId }: CanvasProps) => {
       ) {
         unselectLayers();
         setCanvasState({ mode: CanvasMode.None });
-      } 
+      }
       else if (canvasState.mode === CanvasMode.Pencil) {
         insertPath();
-      } 
-      
+      }
+
       else if (canvasState.mode === CanvasMode.Inserting) {
-        insertLayer(canvasState.layerType, point);
-      } else {
+        if (
+          canvasState.layerType === LayerType.Rectangle ||
+          canvasState.layerType === LayerType.Ellipse ||
+          canvasState.layerType === LayerType.Note ||
+          canvasState.layerType === LayerType.Text
+        ) {
+          insertLayer(canvasState.layerType, point);
+        }
+      }
+      else {
         setCanvasState({ mode: CanvasMode.None });
       }
 
       history.resume();
     },
     [camera, canvasState, history, insertLayer,
-       insertPath,
-       
-       unselectLayers]
+      insertPath,
+
+      unselectLayers]
   );
 
   const onPointerLeave = useMutation(({ setMyPresence }) => {
@@ -427,7 +436,7 @@ const Canvas = ({ canvasId }: CanvasProps) => {
         canRedo={canRedo}
       />
 
-        <SelectionTools camera={camera} setLastUsedColor={setLastUsedColor} />
+      <SelectionTools camera={camera} setLastUsedColor={setLastUsedColor} />
 
       <svg
         id="canvas-root"

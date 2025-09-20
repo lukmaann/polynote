@@ -1,5 +1,5 @@
 import { cn, colorToCss } from "@/lib/utils";
-import { TextLayer } from "@/types/canvas";
+import { Layer, TextLayer } from "@/types/canvas";
 import { useMutation } from "@/liveblocks.config";
 import { Kalam } from "next/font/google";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
@@ -33,7 +33,7 @@ export const Text = ({
   const updateValue = useMutation(({ storage }, newValue: string) => {
     const liveLayers = storage.get("layers");
 
-    liveLayers.get(id)?.set("value", newValue);
+    liveLayers.get(id)?.set("value" as keyof Layer, newValue as any);
   }, []);
 
   const handleContentChange = (e: ContentEditableEvent) => {
