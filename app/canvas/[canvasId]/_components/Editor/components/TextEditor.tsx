@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { ClientSideSuspense, useThreads } from "@liveblocks/react/suspense";
 import {
   FloatingComposer,
@@ -26,8 +26,8 @@ import Participants from "../../Participants";
 import Rename from "../../Rename";
 import { Id } from "@/convex/_generated/dataModel";
 import { useModeStore } from "@/store/textorcanvas";
-
-
+import { AiWritingToggle } from "./AiWritingToggle";
+import { improveWriting } from "@/lib/utils";
 export function TextEditor({ canvasId }: { canvasId: Id<"canvas"> }) {
   return (
     <ClientSideSuspense fallback={<DocumentSpinner />}>
@@ -39,8 +39,12 @@ export function TextEditor({ canvasId }: { canvasId: Id<"canvas"> }) {
 export function Editor({ canvasId }: { canvasId: Id<"canvas"> }) {
   const liveblocks = useLiveblocksExtension();
   const { screenshot, setScreenshot } = useModeStore();
-  
 
+  const [aiWriting, setAiWriting] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const typingTimeout = useRef<NodeJS.Timeout | null>(null);
+  const abortController = useRef<AbortController | null>(null);
 
   const extensions = useMemo(
     () => [
@@ -66,7 +70,9 @@ export function Editor({ canvasId }: { canvasId: Id<"canvas"> }) {
         HTMLAttributes: { class: "tiptap-highlight bg-yellow-200" },
       }),
       Image.configure({
-        HTMLAttributes: { class: "tiptap-image rounded-lg shadow-sm max-w-full" },
+        HTMLAttributes: {
+          class: "tiptap-image rounded-lg shadow-sm max-w-full",
+        },
       }),
       Link.configure({
         HTMLAttributes: {
@@ -94,41 +100,93 @@ export function Editor({ canvasId }: { canvasId: Id<"canvas"> }) {
     [liveblocks]
   );
 
-   
-
   const editor = useEditor({
     editorProps: {
       attributes: { class: "tiptap-root" },
     },
     extensions,
   });
-   useEffect(() => {
+
+  // Handle screenshot insertion
+  useEffect(() => {
     if (editor && screenshot) {
       editor.chain().focus().setImage({ src: screenshot }).run();
-      setScreenshot(null); // clear after inserting
+      setScreenshot(null);
     }
   }, [editor, screenshot, setScreenshot]);
+
+  // AI Writing idle detection
+  useEffect(() => {
+    if (!editor || !aiWriting) return;
+
+    const handleUpdate = () => {
+      if (typingTimeout.current) clearTimeout(typingTimeout.current);
+
+      typingTimeout.current = setTimeout(async () => {
+        const text = editor.getText();
+        if (!text.trim()) return;
+
+        // Cancel any previous request
+        if (abortController.current) {
+          abortController.current.abort();
+        }
+
+        const controller = new AbortController();
+        abortController.current = controller;
+
+        try {
+          setLoading(true);
+          const improved = await improveWriting(text, controller.signal);
+          editor.commands.setContent(improved, false);
+        } catch (err) {
+          if ((err as any).name !== "AbortError") {
+            console.error("AI writing error:", err);
+          }
+        } finally {
+          setLoading(false);
+        }
+      }, 3000); // 1 sec idle
+    };
+
+    editor.on("update", handleUpdate);
+
+    return () => {
+      editor.off("update", handleUpdate);
+      if (typingTimeout.current) clearTimeout(typingTimeout.current);
+      if (abortController.current) abortController.current.abort();
+    };
+  }, [editor, aiWriting]);
 
   const { threads } = useThreads();
 
   if (!editor) return <DocumentSpinner />;
 
   return (
-    <div className="w-full bg-[#FDF8F6]  flex flex-col items-center justify-start">
-      {/* <UserButton/> */}
-      {/* Floating toolbar at top */}
-      <div className="mt-4">
-
+    <div className="w-full bg-[#FDF8F6] flex flex-col items-center justify-start">
+      <div className="mt-4 flex items-center gap-4">
         <Rename id={canvasId} />
+        <div className="flex items-center gap-2">
+         
 
+          {loading && (
+            <div className="fixed top-28 left-1/2 transform -translate-x-1/2 z-60 animate-in slide-in-from-top-2 duration-300">
+              <div className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-purple-50/95 backdrop-blur-md border border-purple-200/80 shadow-lg">
+                <div className="w-3 h-3 rounded-full bg-purple-400 animate-pulse" />
+                <span className="text-xs font-medium text-purple-700">Improving...</span>
+              </div>
+            </div>
+          )}
 
-
-
-
-        <StaticToolbar editor={editor} />
+        </div>
+        <StaticToolbar
+          editor={editor}
+          canvasId={canvasId}
+          aiEnabled={aiWriting}
+          onToggleAi={setAiWriting}
+          loading={loading}
+        />
       </div>
 
-      {/* Editor box in center */}
       <div className="flex-1 flex items-start justify-center w-full mt-10">
         <div className="w-full max-w-3xl">
           <SelectionToolbar editor={editor} />
@@ -138,10 +196,9 @@ export function Editor({ canvasId }: { canvasId: Id<"canvas"> }) {
             aria-multiline="true"
             aria-label="Document editor"
             className="prose prose-lg max-w-none 
-     bg-white p-6 min-h-screen border border-gray-200 shadow-md text-black focus:outline-none focus:ring-0 focus:border-transparent"
+              bg-white p-6 min-h-screen border border-gray-200 shadow-md text-black
+              focus:outline-none focus:ring-0 focus:border-transparent"
           />
-
-
           <FloatingComposer editor={editor} style={{ width: 350 }} />
           <FloatingThreads threads={threads} editor={editor} />
         </div>

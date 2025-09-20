@@ -195,3 +195,34 @@ export const get = query({
     return canvas;
   },
 });
+
+export const saveSummary = mutation({
+  args: { id: v.id("canvas"), summary: v.string() },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorised");
+
+    const canvas = await ctx.db.get(args.id);
+    if (!canvas) throw new Error("Canvas not found");
+
+    await ctx.db.patch(args.id, { summary: args.summary });
+    return await ctx.db.get(args.id);
+  },
+});
+
+export const listWithSummary = query({
+  args: { orgId: v.string() },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("canvas")
+      .withIndex("by_org", (q) => q.eq("orgId", args.orgId))
+      .collect();
+  },
+});
+
+export const getWithSummary = query({
+  args: { id: v.id("canvas") },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.id); // will include summary too
+  },
+});

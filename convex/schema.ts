@@ -8,12 +8,15 @@ export default defineSchema({
     authorId: v.string(),
     authorName: v.string(),
     imageUrl: v.string(),
+    summary: v.optional(v.string()), // 👈 new field for AI summaries
   })
-    .index("by_org", ["orgId"]).index("by_authorId_orgId",["authorId","orgId"])
+    .index("by_org", ["orgId"])
+    .index("by_authorId_orgId", ["authorId", "orgId"])
     .searchIndex("search_title", {
       searchField: "title",
       filterFields: ["orgId"],
     }),
+
   userFavorties: defineTable({
     orgId: v.string(),
     userId: v.string(),

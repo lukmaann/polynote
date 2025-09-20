@@ -15,6 +15,12 @@ export enum LayerType {
   Note,
   Path,
   Text,
+  Triangle,
+  Hexagon,
+  Line,
+  Diamond,
+  Star,
+  Arrow,
 }
 
 export type RectangleLayer = {
@@ -35,6 +41,60 @@ export type EllipseLayer = {
   width: number;
   fill: Color;
   value?: string;
+};
+
+export type TriangleLayer = {
+  type: LayerType.Triangle;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  fill: Color;
+};
+
+export type HexagonLayer = {
+  type: LayerType.Hexagon;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  fill: Color;
+};
+
+export type LineLayer = {
+  type: LayerType.Line;
+  x: number;
+  y: number;
+  x2: number;
+  y2: number;
+  stroke: Color;
+};
+
+export type DiamondLayer = {
+  type: LayerType.Diamond;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  fill: Color;
+};
+
+export type StarLayer = {
+  type: LayerType.Star;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  fill: Color;
+};
+
+export type ArrowLayer = {
+  type: LayerType.Arrow;
+  x: number;
+  y: number;
+  x2: number;
+  y2: number;
+  stroke: Color;
 };
 
 export type PathLayer = {
@@ -102,7 +162,13 @@ export type CanvasState =
         | LayerType.Ellipse
         | LayerType.Rectangle
         | LayerType.Text
-        | LayerType.Note;
+        | LayerType.Note
+        | LayerType.Triangle
+        | LayerType.Hexagon
+        | LayerType.Line
+        | LayerType.Diamond
+        | LayerType.Star
+        | LayerType.Arrow;
     }
   | {
       mode: CanvasMode.Pressing;
@@ -136,4 +202,10 @@ export type Layer =
   | EllipseLayer
   | PathLayer
   | NoteLayer
-  | TextLayer;
+  | TextLayer
+  | TriangleLayer
+  | HexagonLayer
+  | LineLayer
+  | DiamondLayer
+  | StarLayer
+  | ArrowLayer;

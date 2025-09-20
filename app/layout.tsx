@@ -4,6 +4,7 @@ import "./globals.css";
 import ConvexClientProvider from "@/providers/convex-client-provider";
 import { Toaster } from "sonner";
 import ModalProvider from "@/providers/modal-provider";
+import { SummaryDialog } from "./canvas/[canvasId]/_components/SummaryDialog";
 
 const inter = Poppins({ weight: ['600', '400'], subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         <ConvexClientProvider>
           <Toaster />
           <ModalProvider />
+         
           {children}
         </ConvexClientProvider>
       </body>
