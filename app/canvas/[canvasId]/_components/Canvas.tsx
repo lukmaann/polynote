@@ -425,7 +425,7 @@ const Canvas = ({ canvasId }: CanvasProps) => {
   return (
     <main className="h-[100vh] w-full bg-[#FDF8F6] touch-none relative">
       <Participants />
-      <Rename id={cid} />
+     
       <ToolBar
         canvasId={canvasId}
         canvasState={canvasState}

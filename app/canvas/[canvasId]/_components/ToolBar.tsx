@@ -51,7 +51,6 @@ const ToolBar = ({
 
   const { mode, setMode, setScreenshot } = useModeStore();
 
-  // ✅ State for dialog + selection overlay
   const [openDialog, setOpenDialog] = useState(false);
   const [selecting, setSelecting] = useState(false);
 
@@ -61,7 +60,23 @@ const ToolBar = ({
 
   return (
     <>
-      <div className="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-1 px-2 py-1 bg-white border border-gray-200 shadow-md rounded-xl z-50">
+      <div
+        className="
+          absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-1 
+          px-3 py-2 rounded-2xl z-50
+          backdrop-blur-md bg-white/20 border border-white/30
+          shadow-[0_8px_30px_rgb(0,0,0,0.2)]
+          transition-all duration-300 ease-in-out
+          hover:bg-white/30 hover:border-white/40
+        "
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.05))",
+          boxShadow:
+            "0 8px 25px rgba(0,0,0,0.25), inset 0 0 0.5px rgba(255,255,255,0.4)",
+          backdropFilter: "blur(12px)",
+        }}
+      >
         {/* Undo / Redo */}
         <ToolButton
           label="Undo"
@@ -79,9 +94,9 @@ const ToolBar = ({
         />
 
         {/* Divider */}
-        <div className="w-px h-6 bg-gray-200 mx-2" />
+        <div className="w-px h-6 bg-white/30 mx-2" />
 
-        {/* Select tool */}
+        {/* Select */}
         <ToolButton
           label="Select"
           isActive={
@@ -95,7 +110,8 @@ const ToolBar = ({
           onClick={() => setCanvasState({ mode: CanvasMode.None })}
         />
 
-          <ToolButton
+        {/* Text */}
+        <ToolButton
           label="Text"
           icon={Type}
           onClick={() =>
@@ -110,7 +126,7 @@ const ToolBar = ({
           }
         />
 
-        {/* Rectangle tool */}
+        {/* Rectangle */}
         <ToolButton
           label="Rectangle"
           isActive={
@@ -126,7 +142,7 @@ const ToolBar = ({
           }
         />
 
-        {/* Ellipse tool */}
+        {/* Ellipse */}
         <ToolButton
           label="Ellipse"
           isActive={
@@ -142,7 +158,7 @@ const ToolBar = ({
           }
         />
 
-        {/* Pencil tool */}
+        {/* Pen */}
         <ToolButton
           label="Pen"
           isActive={canvasState.mode == CanvasMode.Pencil}
@@ -150,7 +166,7 @@ const ToolBar = ({
           onClick={() => setCanvasState({ mode: CanvasMode.Pencil })}
         />
 
-        {/* Sticky Note tool */}
+        {/* Sticky Note */}
         <ToolButton
           label="Sticky Note"
           isActive={
@@ -171,28 +187,8 @@ const ToolBar = ({
           label="Open Text Editor"
           isActive={mode === "editor"}
           icon={FileText}
-          onClick={() => setOpenDialog(true)} // ✅ open confirmation dialog
-          
-
+          onClick={() => setOpenDialog(true)}
         />
-
-      
-
-        {/* ...
-
-        <ToolButton
-          label="Open Text Editor"
-          isActive={mode === "editor"}
-          icon={FileText}
-          onClick={async () => {
-            const screenshot = await captureCanvas("canvas-svg");
-            if (screenshot) {
-              setScreenshot(screenshot);
-            }
-            setMode("editor");
-          }}
-        /> */}
-
       </div>
 
       {/* ✅ Confirmation Dialog */}
@@ -201,12 +197,12 @@ const ToolBar = ({
         onCancel={() => setOpenDialog(false)}
         onConfirm={() => {
           setOpenDialog(false);
-          setSelecting(true); // show drag-to-select overlay
+          setSelecting(true);
         }}
         onSkip={() => {
           setOpenDialog(false);
-          setScreenshot(null);   // 👈 make sure no leftover image
-          setMode("editor");     // open clean editor
+          setScreenshot(null);
+          setMode("editor");
         }}
       />
 
@@ -218,8 +214,8 @@ const ToolBar = ({
             setSelecting(false);
             const cropped = await captureCanvas("canvas-root");
             if (cropped) {
-              setScreenshot(cropped);   // save screenshot
-              setMode("editor");        // switch editor mode
+              setScreenshot(cropped);
+              setMode("editor");
             }
           }}
         />
@@ -230,7 +226,7 @@ const ToolBar = ({
 
 export const ToolBarSkeleton = () => {
   return (
-    <Skeleton className="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-2 py-1 w-[340px] h-11 bg-white border border-gray-200 shadow-md rounded-xl" />
+    <Skeleton className="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-2 w-[360px] h-11 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-[0_8px_25px_rgb(0,0,0,0.25)]" />
   );
 };
 

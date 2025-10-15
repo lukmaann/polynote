@@ -10,7 +10,7 @@ import { SummaryDialog } from "./canvas/[canvasId]/_components/SummaryDialog";
 const inter = Poppins({ weight: ['600', '400'], subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "WeDraw",
+  title: "PolyNote",
   description: "By lukmaan nadaf",
 };
 

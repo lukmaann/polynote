@@ -18,16 +18,14 @@ import Youtube from "@tiptap/extension-youtube";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { EditorView } from "prosemirror-view";
-
 import { DocumentSpinner } from "../primitives/Spinner";
 import { CustomTaskItem } from "./CustomTaskItem";
 import { StaticToolbar, SelectionToolbar } from "./Toolbars";
 import Participants from "../../Participants";
-import Rename from "../../Rename";
 import { Id } from "@/convex/_generated/dataModel";
 import { useModeStore } from "@/store/textorcanvas";
-import { AiWritingToggle } from "./AiWritingToggle";
 import { improveWriting } from "@/lib/utils";
+
 export function TextEditor({ canvasId }: { canvasId: Id<"canvas"> }) {
   return (
     <ClientSideSuspense fallback={<DocumentSpinner />}>
@@ -77,24 +75,24 @@ export function Editor({ canvasId }: { canvasId: Id<"canvas"> }) {
       Link.configure({
         HTMLAttributes: {
           class:
-            "tiptap-link text-blue-600 underline underline-offset-2 hover:text-blue-700",
+            "tiptap-link text-purple-600 underline underline-offset-2 hover:text-purple-700",
         },
       }),
       Placeholder.configure({
-        placeholder: "Start writing…",
+        placeholder: "Start writing",
         emptyEditorClass: "tiptap-empty text-gray-400 italic",
       }),
       CustomTaskItem,
       TaskList.configure({
         HTMLAttributes: { class: "tiptap-task-list list-none pl-0" },
       }),
-      TextAlign.configure({
-        types: ["heading", "paragraph"],
-      }),
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
       Typography,
       Youtube.configure({
         modestBranding: true,
-        HTMLAttributes: { class: "tiptap-youtube rounded-md overflow-hidden" },
+        HTMLAttributes: {
+          class: "tiptap-youtube rounded-md overflow-hidden",
+        },
       }),
     ],
     [liveblocks]
@@ -107,7 +105,7 @@ export function Editor({ canvasId }: { canvasId: Id<"canvas"> }) {
     extensions,
   });
 
-  // Handle screenshot insertion
+  // Insert screenshots as images
   useEffect(() => {
     if (editor && screenshot) {
       editor.chain().focus().setImage({ src: screenshot }).run();
@@ -115,7 +113,7 @@ export function Editor({ canvasId }: { canvasId: Id<"canvas"> }) {
     }
   }, [editor, screenshot, setScreenshot]);
 
-  // AI Writing idle detection
+  // AI writing enhancement
   useEffect(() => {
     if (!editor || !aiWriting) return;
 
@@ -126,10 +124,7 @@ export function Editor({ canvasId }: { canvasId: Id<"canvas"> }) {
         const text = editor.getText();
         if (!text.trim()) return;
 
-        // Cancel any previous request
-        if (abortController.current) {
-          abortController.current.abort();
-        }
+        if (abortController.current) abortController.current.abort();
 
         const controller = new AbortController();
         abortController.current = controller;
@@ -139,13 +134,11 @@ export function Editor({ canvasId }: { canvasId: Id<"canvas"> }) {
           const improved = await improveWriting(text, controller.signal);
           editor.commands.setContent(improved, false);
         } catch (err) {
-          if ((err as any).name !== "AbortError") {
-            console.error("AI writing error:", err);
-          }
+          if ((err as any).name !== "AbortError") console.error(err);
         } finally {
           setLoading(false);
         }
-      }, 3000); // 1 sec idle
+      }, 2500);
     };
 
     editor.on("update", handleUpdate);
@@ -162,53 +155,52 @@ export function Editor({ canvasId }: { canvasId: Id<"canvas"> }) {
   if (!editor) return <DocumentSpinner />;
 
   return (
-    <div className="w-full bg-[#FDF8F6] flex flex-col items-center justify-start">
-      <div className="mt-4 flex items-center gap-4">
-        <Rename id={canvasId} />
-        <div className="flex items-center gap-2">
-         
+    <div className="relative w-full min-h-screen flex flex-col bg-gray-50 dark:bg-neutral-950">
+      {/* Fixed top toolbar */}
+      <StaticToolbar
+        editor={editor}
+        canvasId={canvasId}
+        aiEnabled={aiWriting}
+        onToggleAi={setAiWriting}
+        loading={loading}
+      />
 
-          {loading && (
-            <div className="fixed top-28 left-1/2 transform -translate-x-1/2 z-60 animate-in slide-in-from-top-2 duration-300">
-              <div className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-purple-50/95 backdrop-blur-md border border-purple-200/80 shadow-lg">
-                <div className="w-3 h-3 rounded-full bg-purple-400 animate-pulse" />
-                <span className="text-xs font-medium text-purple-700">Improving...</span>
-              </div>
-            </div>
-          )}
-
-        </div>
-        <StaticToolbar
-          editor={editor}
-          canvasId={canvasId}
-          aiEnabled={aiWriting}
-          onToggleAi={setAiWriting}
-          loading={loading}
-        />
-      </div>
-
-      <div className="flex-1 flex items-start justify-center w-full mt-10">
-        <div className="w-full max-w-3xl">
+      {/* Editor body */}
+      <main className="flex-1 flex items-start justify-center w-full pt-36 pb-24">
+        <div className="w-full max-w-4xl px-6">
           <SelectionToolbar editor={editor} />
           <EditorContent
             editor={editor}
             role="textbox"
             aria-multiline="true"
-            aria-label="Document editor"
-            className="prose prose-lg max-w-none 
-              bg-white p-6 min-h-screen border border-gray-200 shadow-md text-black
-              focus:outline-none focus:ring-0 focus:border-transparent"
+            aria-label="Collaborative editor"
+            className="prose prose-lg dark:prose-invert max-w-none
+              bg-white dark:bg-neutral-900 p-10 min-h-[80vh] rounded-2xl shadow-md border border-gray-200/70 dark:border-gray-800/70
+              focus:outline-none transition-all duration-300"
           />
           <FloatingComposer editor={editor} style={{ width: 350 }} />
           <FloatingThreads threads={threads} editor={editor} />
         </div>
-      </div>
+      </main>
+
       <Participants />
+
+      {/* AI “improving” floating indicator */}
+      {loading && (
+        <div className="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-purple-100/90 backdrop-blur border border-purple-300/60 shadow-sm">
+            <div className="w-3 h-3 rounded-full bg-purple-500 animate-pulse" />
+            <span className="text-xs font-medium text-purple-700">
+              Improving...
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-// Hot-reload fix
+// Prevent hot-reload crash
 EditorView.prototype.updateState = function updateState(state) {
   // @ts-ignore
   if (!this.docView) return;
