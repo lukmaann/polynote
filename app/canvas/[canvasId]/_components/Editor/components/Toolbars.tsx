@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState, useRef } from "react";
 import { FloatingToolbar, Toolbar } from "@liveblocks/react-tiptap";
 import { Editor } from "@tiptap/react";
 import { ToolbarMedia } from "./ToolbarMedia";
@@ -8,6 +9,7 @@ import { ToolbarAlignment } from "./ToolbarAlignment";
 import { ToolbarBlockSelector } from "./ToolbarBlockSelector";
 import { Id } from "@/convex/_generated/dataModel";
 import { AiWritingToggle } from "./AiWritingToggle";
+import Rename from "../../Rename";
 
 type Props = {
   editor: Editor | null;
@@ -17,94 +19,155 @@ type Props = {
   loading?: boolean;
 };
 
-export function StaticToolbar({ editor, canvasId, aiEnabled, onToggleAi, loading }: Props) {
+export function StaticToolbar({
+  editor,
+  canvasId,
+  aiEnabled,
+  onToggleAi,
+  loading,
+}: Props) {
+  const [wordCount, setWordCount] = useState(0);
+  const [charCount, setCharCount] = useState(0);
+  const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "unsaved">("saved");
+  const saveTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  // --- Auto Save Logic ---
+  useEffect(() => {
+    if (!editor) return;
+
+    const handleUpdate = () => {
+      const text = editor.getText().trim();
+      const words = text.length > 0 ? text.split(/\s+/).length : 0;
+      setWordCount(words);
+      setCharCount(text.length);
+
+      setSaveStatus("unsaved");
+
+      if (saveTimeout.current) clearTimeout(saveTimeout.current);
+
+      saveTimeout.current = setTimeout(() => {
+        setSaveStatus("saving");
+
+        // Simulate API call or Convex save here
+        setTimeout(() => {
+          setSaveStatus("saved");
+        }, 1200);
+      }, 2000);
+    };
+
+    editor.on("update", handleUpdate);
+    handleUpdate(); // initial run
+
+    return () => {
+      editor.off("update", handleUpdate);
+      if (saveTimeout.current) clearTimeout(saveTimeout.current);
+    };
+  }, [editor]);
+
+  // Status message styling
+  const statusText =
+    saveStatus === "saving"
+      ? "Saving..."
+      : saveStatus === "unsaved"
+      ? "Unsaved changes"
+      : "Saved ✓";
+
   return (
-    <div className="sticky top-0 z-50 backdrop-blur-md bg-white/90 border-b border-gray-200/80 shadow-sm">
-      <div className="max-w-full overflow-x-auto">
-        <Toolbar
-          editor={editor}
-          data-toolbar="static"
-          className="flex items-center gap-1 px-4 py-2.5 text-black min-w-max"
-        >
-          {/* Undo / Redo history */}
-          <div className="flex items-center gap-0.5 p-1 rounded-lg hover:bg-gray-100/60 transition-colors">
-            <Toolbar.SectionHistory />
-          </div>
-
-          <div className="w-px h-5 bg-gradient-to-b from-transparent via-gray-300/60 to-transparent mx-2" />
-
-          {/* Block selector */}
-          <div className="flex items-center p-1 rounded-lg hover:bg-gray-100/60 transition-colors">
-            <ToolbarBlockSelector editor={editor} />
-          </div>
-
-          <div className="w-px h-5 bg-gradient-to-b from-transparent via-gray-300/60 to-transparent mx-2" />
-
-          {/* Inline formatting */}
-          <div className="flex items-center gap-0.5 p-1 rounded-lg hover:bg-gray-100/60 transition-colors">
-            <Toolbar.SectionInline />
-            <ToolbarInlineAdvanced editor={editor} />
-          </div>
-
-          <div className="w-px h-5 bg-gradient-to-b from-transparent via-gray-300/60 to-transparent mx-2" />
-
-          {/* Alignment */}
-          <div className="flex items-center p-1 rounded-lg hover:bg-gray-100/60 transition-colors">
-            <ToolbarAlignment editor={editor} />
-          </div>
-
-          <div className="w-px h-5 bg-gradient-to-b from-transparent via-gray-300/60 to-transparent mx-2" />
-
-          {/* Media */}
-          <div className="flex items-center p-1 rounded-lg hover:bg-gray-100/60 transition-colors">
-            <ToolbarMedia editor={editor} canvasId={canvasId} />
-          </div>
-
-          {/* AI Writing toggle - right aligned */}
+    <div className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-white/80 dark:bg-neutral-900/80 border-b border-gray-200/60 dark:border-gray-800 shadow-sm transition-all duration-300">
+      <div className="flex items-center justify-between px-4 py-2 text-gray-900 dark:text-gray-100">
+        {/* Left side */}
+        <div className="flex items-center gap-3">
+          <Rename id={canvasId} />
           {onToggleAi && (
             <>
-              <div className="flex-1" /> {/* Spacer to push AI toggle to the right */}
-              <div className="flex items-center gap-2 ml-4">
-                <div className="w-px h-5 bg-gradient-to-b from-transparent via-gray-300/60 to-transparent" />
-                <AiWritingToggle enabled={aiEnabled ?? false} onChange={onToggleAi} />
-                
-              </div>
+              <Divider />
+              <AiWritingToggle
+                enabled={aiEnabled ?? false}
+                onChange={onToggleAi}
+              />
             </>
           )}
-        </Toolbar>
+        </div>
+
+        {/* Right side — Save Status */}
+        <div
+          className={`text-sm font-medium bg-gray-200 p-1 px-2 rounded-sm transition-opacity duration-500 ${
+            saveStatus === "saving"
+              ? " opacity-100"
+              : saveStatus === "unsaved"
+              ? " opacity-100"
+              : " opacity-80"
+          }`}
+        >
+          {statusText}
+        </div>
+      </div>
+
+      <div className="max-w-screen-2xl mx-auto">
+        <div className="flex justify-between px-4 items-center">
+          <Toolbar
+            editor={editor}
+            data-toolbar="static"
+            className="flex items-center gap-2 px-4 py-2 text-gray-900 dark:text-gray-100"
+          >
+            {/* Undo / Redo */}
+            <div className="flex items-center gap-0.5 p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors">
+              <Toolbar.SectionHistory />
+            </div>
+
+            <Divider />
+
+            {/* Block selector */}
+            <div className="flex items-center p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors">
+              <ToolbarBlockSelector editor={editor} />
+            </div>
+
+            <Divider />
+
+            {/* Inline formatting */}
+            <div className="flex items-center gap-0.5 p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors">
+              <Toolbar.SectionInline />
+              <ToolbarInlineAdvanced editor={editor} />
+            </div>
+
+            <Divider />
+
+            {/* Alignment */}
+            <div className="flex items-center p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors">
+              <ToolbarAlignment editor={editor} />
+            </div>
+
+            <Divider />
+
+            {/* Media */}
+            <div className="flex items-center p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors">
+              <ToolbarMedia editor={editor} canvasId={canvasId} />
+            </div>
+          </Toolbar>
+
+          <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+            {wordCount} words · {charCount} chars
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
+// Divider
+function Divider() {
+  return (
+    <div className="w-px h-5 bg-gradient-to-b from-transparent via-gray-300/70 to-transparent dark:via-gray-700/70 mx-2" />
+  );
+}
+
 export function SelectionToolbar({ editor }: { editor: Editor | null }) {
   return (
-    <FloatingToolbar
-      editor={editor}
-      data-toolbar="selection"
-      className="flex items-center gap-1 bg-white/95 backdrop-blur-md border border-gray-200/80 shadow-lg rounded-xl p-2 text-black"
-      style={{
-        boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04)'
-      }}
-    >
-      {/* Block selector */}
-      <div className="flex items-center p-1 rounded-lg hover:bg-gray-100/60 transition-colors">
-        <ToolbarBlockSelector editor={editor} />
-      </div>
-
-      <div className="w-px h-5 bg-gradient-to-b from-transparent via-gray-300/60 to-transparent mx-2" />
-
-      {/* Inline formatting */}
-      <div className="flex items-center gap-0.5 p-1 rounded-lg hover:bg-gray-100/60 transition-colors">
-        <Toolbar.SectionInline />
-      </div>
-
-      <div className="w-px h-5 bg-gradient-to-b from-transparent via-gray-300/60 to-transparent mx-2" />
-
-      {/* Collaboration features */}
-      <div className="flex items-center p-1 rounded-lg hover:bg-gray-100/60 transition-colors">
-        <Toolbar.SectionCollaboration />
-      </div>
+    <FloatingToolbar editor={editor} data-toolbar="selection">
+     
+      <ToolbarBlockSelector editor={editor} />
+      <Toolbar.Separator />
+      <Toolbar.SectionInline />
     </FloatingToolbar>
   );
 }

@@ -50,12 +50,12 @@ const Rename = ({ id }: RenameProps) => {
   const isOwner = userId === author; // ✅ ownership check
 
   return (
-    <div className="absolute top-4 left-6 z-20 p-2">
+    <div className=" p-2 ">
       {isOwner ? (
         <Hint label={"rename"} >
 
         <input
-          className="text-lg bg-transparent border-b border-transparent focus:border-none focus:outline-none transition-colors placeholder-gray-400 text-gray-400"
+          className="text-lg  bg-transparent border p-1 rounded-sm border-gray focus:border-none focus:outline-none transition-colors placeholder-gray-400 text-gray-400"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           onKeyDown={handleKeyDown}

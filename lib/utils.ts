@@ -247,7 +247,11 @@ ${content}
   }
 
   const data = await response.json();
-  return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "No summary generated.";
+  let text = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? content;
+
+  // 🔑 Strip out any unwanted prefix if Gemini still adds one
+  text = text.replace(/^Here.*document:\s*/i, "").trim();
+  return text;
 }
 
 
@@ -296,7 +300,51 @@ ${content}
     const err = await response.text();
     throw new Error(`Gemini API error: ${response.status} ${err}`);
   }
+  const data = await response.json();
+  let text = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? content;
+
+  // 🔑 Strip out any unwanted prefix if Gemini still adds one
+  text = text.replace(/^Here.*document:\s*/i, "").trim();
+  return text;
+}
+
+
+// utils/detectShape.ts
+export async function detectShape(points: number[][]): Promise<string> {
+  const simplified = points.map(p => `(${p[0]},${p[1]})`).join(" ");
+
+  const prompt = `
+The user drew a shape represented by these stroke points:
+${simplified}
+
+Classify this stroke as one of:
+circle, rectangle, triangle, line, or scribble.
+
+Return only the shape name.
+`;
+
+  const response = await fetch(
+    // "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": process.env.NEXT_PUBLIC_GEMINI_API_KEY!,
+      },
+      body: JSON.stringify({
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Gemini API error: ${response.status}`);
+  }
 
   const data = await response.json();
-  return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? content;
+  const shape = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim().toLowerCase();
+console.log("✅ Gemini classified shape:", shape);
+
+  return shape || "scribble";
 }
