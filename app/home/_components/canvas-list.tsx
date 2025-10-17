@@ -22,6 +22,8 @@ const CanvasList = ({
     
     const data = useQuery(api.canvases.get, { orgId, ...query });
 
+    
+
     if (data === undefined) {
         return <div className="grid grid-cols-2  sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 mt-5 pb-10 gap-5">
             <NewCanvasButton orgId={orgId} />
