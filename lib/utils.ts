@@ -274,13 +274,11 @@ export async function improveWriting(
             parts: [
               {
                 text: `
-Rewrite the following document with:
-- Fixed spelling and grammar
-- Better sentence flow
-- More natural and concise wording
-- Keep structure and meaning intact
+You are a precise editor. 
+Rewrite the following text with correct grammar, smoother flow, and concise, natural language.
+Do not add any explanations, introductions, or notes — only return the improved text itself.
 
-Document:
+Text to improve:
 ${content}
                 `,
               },
@@ -298,5 +296,5 @@ ${content}
   }
 
   const data = await response.json();
-  return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? content;
+  return data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ?? content;
 }

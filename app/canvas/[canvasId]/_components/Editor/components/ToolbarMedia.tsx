@@ -16,6 +16,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { SummaryDialog } from "../../SummaryDialog";
 import { AiIcon } from "../icons/AiIcon";
+import Hint from "@/app/home/_components/hint";
 
 type Props = {
   editor: Editor | null;
@@ -99,11 +100,13 @@ export function ToolbarMedia({ editor, canvasId }: Props) {
         onClick={handleSummarise}
       />
 
+      
       <Toolbar.Button
         name="Open Canvas"
         className="text-black"
         icon={<MousePointerIcon />}
         onClick={() => setMode("canvas")}
+       
       />
 
       {/* Summary Dialog */}

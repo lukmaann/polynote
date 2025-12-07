@@ -125,6 +125,8 @@
   color-scheme: light;
 }
 
+
+
 /* Dark theme */
 [data-theme="dark"] {
   --color-red: 248 113 113;
@@ -359,3 +361,10 @@ html.grabbing * {
 }
 
 /* Make inline section buttons always black */
+/* Add this to the end of your globals.css file */
+
+/* Fix tooltips appearing behind other elements */
+[data-radix-popper-content-wrapper] {
+  z-index: 9999 !important;
+}
+
